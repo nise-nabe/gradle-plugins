@@ -14,3 +14,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+for (project in rootProject.children) {
+    val projectPath = file("subprojects/${project.name}")
+
+    project.projectDir = projectPath
+}
