@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/subprojects/github-packages-publish" />
             <option value="$PROJECT_DIR$/subprojects/idea-ext-ext" />
           </set>
         </option>
