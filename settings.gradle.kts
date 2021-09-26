@@ -7,6 +7,7 @@ enableFeaturePreview("VERSION_CATALOGS")
 pluginManagement {
     repositories {
         gradlePluginPortal()
+        mavenCentral()
     }
     plugins {
         id("org.jetbrains.gradle.plugin.idea-ext") version "1.0.1"
@@ -20,7 +21,6 @@ dependencyResolutionManagement {
     }
 }
 
-includeBuild("./build-conventions")
 include("idea-ext-ext")
 
 for (project in rootProject.children) {
