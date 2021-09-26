@@ -3,10 +3,17 @@ plugins {
 }
 
 group = "com.nisecoder.gradle.plugin"
-version = "0.0.1"
 
 subprojects {
     apply(plugin = "maven-publish")
+
+    // inject in GitHub Action Publish Workflow
+    val publishVersion: String? by project
+    version = if (publishVersion?.isNotEmpty() == true) {
+        publishVersion!!.replaceFirst("refs/tags/v", "")
+    } else {
+        "1.0-SNAPSHOT"
+    }
 
     extensions.configure<PublishingExtension> {
         repositories {
