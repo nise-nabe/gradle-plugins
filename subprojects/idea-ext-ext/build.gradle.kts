@@ -1,6 +1,7 @@
 plugins {
     `kotlin-dsl-base`
     `java-gradle-plugin`
+    id("buildworld.publish")
 }
 
 dependencies {
