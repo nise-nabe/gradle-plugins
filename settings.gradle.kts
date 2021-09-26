@@ -21,7 +21,6 @@ dependencyResolutionManagement {
 }
 
 include("idea-ext-ext")
-include("github-packages-publish")
 
 for (project in rootProject.children) {
     val projectPath = file("subprojects/${project.name}")
