@@ -1,4 +1,4 @@
-package com.nisecoder.gradle
+package com.nisecoder.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

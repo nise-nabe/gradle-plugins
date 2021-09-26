@@ -10,8 +10,8 @@ dependencies {
 gradlePlugin {
     plugins {
         register("idea-ext-ext") {
-            id = "com.nisecoder.gradle.idea-ext-ext"
-            implementationClass = "com.nisecoder.gradle.IdeaExtExtPlugin"
+            id = "com.nisecoder.idea-ext-ext"
+            implementationClass = "com.nisecoder.gradle.plugin.IdeaExtExtPlugin"
         }
     }
 }

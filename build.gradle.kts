@@ -2,7 +2,7 @@ plugins {
     id("org.jetbrains.gradle.plugin.idea-ext")
 }
 
-group = "com.nisecoder.gradle"
+group = "com.nisecoder.gradle.plugin"
 version = "1.0-SNAPSHOT"
 
 subprojects {

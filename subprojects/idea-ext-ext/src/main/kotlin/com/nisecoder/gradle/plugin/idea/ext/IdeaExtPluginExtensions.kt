@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.nisecoder.gradle.idea.ext
+package com.nisecoder.gradle.plugin.idea.ext
 
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.configure
