@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.nisecoder.gradle.plugin"
-version = "1.0-SNAPSHOT"
+version = "0.0.1"
 
 subprojects {
     apply(plugin = "maven-publish")

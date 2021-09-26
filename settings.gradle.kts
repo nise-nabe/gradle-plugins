@@ -11,6 +11,7 @@ pluginManagement {
     }
     plugins {
         id("org.jetbrains.gradle.plugin.idea-ext") version "1.0.1"
+        id("com.gradle.plugin-publish") version "0.16.0"
     }
 }
 
