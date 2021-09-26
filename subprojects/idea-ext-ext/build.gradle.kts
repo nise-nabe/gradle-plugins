@@ -1,7 +1,4 @@
 plugins {
-    kotlin("jvm")
-}
-
-dependencies {
-    implementation(kotlin("stdlib"))
+    `kotlin-dsl-base`
+    `java-gradle-plugin`
 }
