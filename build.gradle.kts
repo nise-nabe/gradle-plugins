@@ -2,9 +2,8 @@ plugins {
     id("org.jetbrains.gradle.plugin.idea-ext")
 }
 
-group = "com.nisecoder.gradle.plugin"
-
 subprojects {
+    group = "com.nisecoder.gradle.plugin"
     apply(plugin = "maven-publish")
 
     // inject in GitHub Action Publish Workflow
