@@ -20,6 +20,7 @@ dependencyResolutionManagement {
     }
 }
 
+includeBuild("./build-conventions")
 include("idea-ext-ext")
 
 for (project in rootProject.children) {
