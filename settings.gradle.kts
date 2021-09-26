@@ -6,6 +6,9 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
     }
+    plugins {
+        kotlin("jvm") version "1.5.31"
+    }
 }
 
 dependencyResolutionManagement {
@@ -14,6 +17,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+include("idea-ext-ext")
 
 for (project in rootProject.children) {
     val projectPath = file("subprojects/${project.name}")
