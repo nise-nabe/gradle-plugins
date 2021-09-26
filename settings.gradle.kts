@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 rootProject.name = "gradle-plugins"
 
 enableFeaturePreview("VERSION_CATALOGS")
@@ -7,7 +9,6 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        kotlin("jvm") version "1.5.31"
         id("org.jetbrains.gradle.plugin.idea-ext") version "1.0.1"
     }
 }
