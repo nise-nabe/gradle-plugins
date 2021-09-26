@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation("gradle.plugin.org.jetbrains.gradle.plugin.idea-ext:gradle-idea-ext:1.+")
+    implementation("gradle.plugin.org.jetbrains.gradle.plugin.idea-ext:gradle-idea-ext:${libs.versions.idea.ext.get()}")
 }
 
 gradlePlugin {
