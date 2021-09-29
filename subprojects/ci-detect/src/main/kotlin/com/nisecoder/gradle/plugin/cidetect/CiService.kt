@@ -4,4 +4,5 @@ enum class CiService {
     CIRCLECI,
     DRONE,
     JENKINS,
+    GITHUB_ACTIONS,
 }
