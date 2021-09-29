@@ -2,6 +2,14 @@
 
 package com.nisecoder.gradle.plugin.cidetect
 
+val ciService: CiService?
+    get() = when {
+        isCircleCI -> CiService.CIRCLECI
+        isJenkins -> CiService.JENKINS
+        isDrone -> CiService.DRONE
+        else -> null
+    }
+
 val isCircleCI: Boolean
     get() = (System.getenv("CIRCLECI") ?: "") == "true"
 
