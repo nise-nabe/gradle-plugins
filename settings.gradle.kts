@@ -23,6 +23,7 @@ dependencyResolutionManagement {
 }
 
 include("idea-ext-ext")
+include("ci-detect")
 
 for (project in rootProject.children) {
     val projectPath = file("subprojects/${project.name}")
