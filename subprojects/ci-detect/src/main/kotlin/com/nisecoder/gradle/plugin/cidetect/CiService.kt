@@ -5,4 +5,5 @@ enum class CiService {
     DRONE,
     JENKINS,
     GITHUB_ACTIONS,
+    TEAMCITY,
 }

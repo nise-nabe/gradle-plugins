@@ -8,6 +8,7 @@ val ciService: CiService?
         isJenkins -> CiService.JENKINS
         isDrone -> CiService.DRONE
         isGithubActions -> CiService.GITHUB_ACTIONS
+        isTeamCity -> CiService.TEAMCITY
         else -> null
     }
 
@@ -25,6 +26,9 @@ val isDrone: Boolean
 /** https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables */
 val isGithubActions: Boolean
     get() = (System.getenv("GITHUB_ACTIONS") ?: "") == "true"
+
+val isTeamCity: Boolean
+    get() = (System.getenv("TEAMCITY_PROJECT_NAME") ?: "") != ""
 
 val isCI: Boolean
     get() = (System.getenv("CI") ?: "")  == "true"
