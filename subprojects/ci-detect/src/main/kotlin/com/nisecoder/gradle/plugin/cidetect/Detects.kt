@@ -16,7 +16,7 @@ val isCircleCI: Boolean
     get() = (System.getenv("CIRCLECI") ?: "") == "true"
 
 val isJenkins: Boolean
-    get() = (System.getenv("JENKINS_URL") ?: "") == ""
+    get() = (System.getenv("JENKINS_URL") ?: "") != ""
 
 /** https://docs.drone.io/pipeline/environment/reference/drone/ */
 val isDrone: Boolean
