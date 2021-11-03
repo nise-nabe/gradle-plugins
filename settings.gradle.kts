@@ -24,6 +24,7 @@ dependencyResolutionManagement {
 
 include("idea-ext-ext")
 include("ci-detect")
+include("asciidoctor")
 
 for (project in rootProject.children) {
     val projectPath = file("subprojects/${project.name}")
