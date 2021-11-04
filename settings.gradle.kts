@@ -25,6 +25,8 @@ dependencyResolutionManagement {
 include("idea-ext-ext")
 include("ci-detect")
 include("asciidoctor")
+include("github-actions")
+include("lib-gradle-test")
 
 for (project in rootProject.children) {
     val projectPath = file("subprojects/${project.name}")
