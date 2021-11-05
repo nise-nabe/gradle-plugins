@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.nisecoder.gradle.test
+package com.nisecoder.gradle.plugin.test
 
 import org.intellij.lang.annotations.Language
 import java.io.File
