@@ -1,8 +1,8 @@
 plugins {
     `kotlin-dsl-base`
     `java-gradle-plugin`
-    id("com.gradle.plugin-publish")
     id("com.nisecoder.convention.idea")
+    id("com.nisecoder.convention.build-gradle-plugin")
 }
 
 gradlePlugin {
@@ -16,9 +16,6 @@ gradlePlugin {
 }
 
 pluginBundle {
-    website = "https://github.com/nise-nabe/gradle-plugins"
-    vcsUrl = "https://github.com/nise-nabe/gradle-plugins"
-
     (plugins) {
         "ci-detect" {
             tags = listOf("ci")

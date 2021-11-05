@@ -11,7 +11,6 @@ pluginManagement {
     }
     plugins {
         id("org.jetbrains.gradle.plugin.idea-ext") version "1.0.1"
-        id("com.gradle.plugin-publish") version "0.16.0"
     }
 }
 
@@ -29,6 +28,7 @@ include("ci-detect")
 include("asciidoctor")
 include("github-actions")
 include("lib-gradle-test")
+include("publish-intellij-plugin")
 
 for (project in rootProject.children) {
     val projectPath = file("subprojects/${project.name}")
