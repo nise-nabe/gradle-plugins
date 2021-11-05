@@ -22,15 +22,3 @@ pluginBundle {
         }
     }
 }
-
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testImplementation(gradleTestKit())
-    testImplementation(kotlin("test-junit5"))
-    testImplementation(project(":lib-gradle-test"))
-    testImplementation("org.assertj:assertj-core:3.21.0")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
