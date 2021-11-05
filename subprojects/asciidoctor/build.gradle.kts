@@ -2,6 +2,7 @@ plugins {
     `kotlin-dsl-base`
     `java-gradle-plugin`
     id("com.gradle.plugin-publish")
+    id("com.nisecoder.convention.idea")
 }
 
 dependencies {
