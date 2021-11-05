@@ -22,6 +22,8 @@ dependencyResolutionManagement {
     }
 }
 
+includeBuild("./build-logic")
+
 include("idea-ext-ext")
 include("ci-detect")
 include("asciidoctor")
