@@ -2,14 +2,20 @@ package com.nisecoder.gradle.plugin.intellij.plugin.portal
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 
 abstract class UpdatePluginsXmlTask: DefaultTask() {
     @get:InputFile
     abstract val pluginXml: RegularFileProperty
+    @get:Input
+    @get:Optional
+    abstract val pluginUrl: Property<String>
 
     @get:OutputFile
     abstract val updatePluginsXml: RegularFileProperty
@@ -22,6 +28,13 @@ abstract class UpdatePluginsXmlTask: DefaultTask() {
 
         val plugin = parser.readPluginXml(pluginXml.get().asFile)
 
-        logger.lifecycle("${plugin.id}")
+        val plugins = parser.readPluginsXml(updatePluginsXml.get().asFile)
+
+        plugins.plugin.find { it.id == plugin.id }?.let {
+            pluginUrl.orNull?.run { it.url = this }
+            it.version = plugin.version
+        }
+
+        parser.writePluginsXml(updatePluginsXml.get().asFile, plugins)
     }
 }

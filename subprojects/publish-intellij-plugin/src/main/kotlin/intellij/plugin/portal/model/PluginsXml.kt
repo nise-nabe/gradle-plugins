@@ -13,9 +13,9 @@ data class PluginsXml(
         @JacksonXmlProperty(isAttribute = true)
         val id: String,
         @JacksonXmlProperty(isAttribute = true)
-        val url: String,
+        var url: String,
         @JacksonXmlProperty(isAttribute = true)
-        val version: String,
+        var version: String,
 
         val ideaVersion: IdeaVersion
     )
