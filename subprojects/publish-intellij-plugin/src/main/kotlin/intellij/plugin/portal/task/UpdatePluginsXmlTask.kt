@@ -1,5 +1,6 @@
-package com.nisecoder.gradle.plugin.intellij.plugin.portal
+package com.nisecoder.gradle.plugin.intellij.plugin.portal.task
 
+import com.nisecoder.gradle.plugin.intellij.plugin.portal.IdeaPluginXmlParser
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property

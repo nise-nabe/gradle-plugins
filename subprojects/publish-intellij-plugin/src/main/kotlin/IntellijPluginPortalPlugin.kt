@@ -1,7 +1,7 @@
 package com.nisecoder.gradle.plugin
 
 import com.nisecoder.gradle.plugin.intellij.plugin.portal.IntellijPluginPortalExtension
-import com.nisecoder.gradle.plugin.intellij.plugin.portal.UpdatePluginsXmlTask
+import com.nisecoder.gradle.plugin.intellij.plugin.portal.task.UpdatePluginsXmlTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
