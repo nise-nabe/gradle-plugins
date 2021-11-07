@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 @JacksonXmlRootElement(localName = "plugins")
 data class PluginsXml(
     @get:JacksonXmlElementWrapper(useWrapping = false)
-    val plugin: MutableList<Plugin>
+    val plugin: MutableList<Plugin> = mutableListOf()
 ) {
     data class Plugin(
         @JacksonXmlProperty(isAttribute = true)
@@ -18,12 +18,5 @@ data class PluginsXml(
         var version: String,
 
         val ideaVersion: IdeaVersion? = null
-    )
-
-    data class IdeaVersion(
-        @JacksonXmlProperty(isAttribute = true)
-        val sinceBuild: String,
-        @JacksonXmlProperty(isAttribute = true)
-        val untilBuild: String,
     )
 }
