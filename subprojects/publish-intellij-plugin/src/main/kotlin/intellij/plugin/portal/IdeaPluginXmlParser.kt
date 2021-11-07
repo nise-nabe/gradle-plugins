@@ -1,5 +1,7 @@
 package com.nisecoder.gradle.plugin.intellij.plugin.portal
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator
@@ -24,6 +26,8 @@ class IdeaPluginXmlParser {
             .enable(ToXmlGenerator.Feature.WRITE_XML_DECLARATION)
             .registerModule(kotlinModule)
             .setPropertyNamingStrategy(PropertyNamingStrategies.KEBAB_CASE)
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
     }
 
     fun readPluginXml(file: File): IdeaPluginXml {
@@ -43,11 +47,10 @@ class IdeaPluginXmlParser {
     }
 
     fun writePluginsXml(file: File, xml: PluginsXml) {
-        mapper.writeValue(file, xml)
+        return mapper.writerWithDefaultPrettyPrinter().writeValue(file, xml)
     }
 
     fun convertPluginsXml(xml: PluginsXml): String {
-        return mapper.writerWithDefaultPrettyPrinter()
-            .writeValueAsString(xml)
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(xml)
     }
 }
