@@ -1,6 +1,7 @@
 package com.nisecoder.gradle.plugin.intellij.plugin.portal.task
 
 import com.nisecoder.gradle.plugin.intellij.plugin.portal.IdeaPluginXmlParser
+import com.nisecoder.gradle.plugin.intellij.plugin.portal.model.PluginsXml
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
@@ -34,7 +35,11 @@ abstract class UpdatePluginsXmlTask: DefaultTask() {
         plugins.plugin.find { it.id == plugin.id }?.let {
             pluginUrl.orNull?.run { it.url = this }
             it.version = plugin.version
-        }
+        } ?: plugins.plugin.add(PluginsXml.Plugin(
+            id = plugin.id,
+            url = pluginUrl.get(),
+            version = plugin.version,
+        ))
 
         parser.writePluginsXml(updatePluginsXml.get().asFile, plugins)
     }

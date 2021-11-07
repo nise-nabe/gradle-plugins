@@ -6,6 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class PluginsXmlTest {
     lateinit var ideaPluginXmlParser: IdeaPluginXmlParser
@@ -39,6 +40,8 @@ class PluginsXmlTest {
               <plugin id="id.of.different.plugin" url="https://www.otherserver.com/other_repository/differentplugin.jar" version="major.minor">
                 <idea-version since-build="181.3" until-build="191.*" />
               </plugin>
+              <plugin id="id.of.no.idea.version.plugin" url="https://www.otherserver.com/other_repository/differentplugin.jar" version="major.minor">
+              </plugin>
             </plugins>
         """.trimIndent()
 
@@ -48,15 +51,17 @@ class PluginsXmlTest {
         assertEquals("fully.qualified.id.of.this.plugin", result.plugin[0].id)
         assertEquals("https://www.mycompany.com/my_repository/mypluginname.jar", result.plugin[0].url)
         assertEquals("major.minor.update", result.plugin[0].version)
-        assertEquals("181.3", result.plugin[0].ideaVersion.sinceBuild)
-        assertEquals("191.*", result.plugin[0].ideaVersion.untilBuild)
+        assertEquals("181.3", result.plugin[0].ideaVersion!!.sinceBuild)
+        assertEquals("191.*", result.plugin[0].ideaVersion!!.untilBuild)
 
+        assertEquals("id.of.no.idea.version.plugin", result.plugin[2].id)
+        assertNull(result.plugin[2].ideaVersion)
     }
 
     @Test
     fun serialize() {
         val model = PluginsXml(
-            plugin = listOf(
+            plugin = mutableListOf(
                 PluginsXml.Plugin(
                     id = "fully.qualified.id.of.this.plugin",
                     url = "https://www.mycompany.com/my_repository/mypluginname.jar",
@@ -74,6 +79,11 @@ class PluginsXmlTest {
                         sinceBuild = "181.3",
                         untilBuild = "191.*"
                     )
+                ),
+                PluginsXml.Plugin(
+                    id = "id.of.no.idea.version.plugin",
+                    url = "https://www.otherserver.com/other_repository/differentplugin.jar",
+                    version = "major.minor",
                 ),
             )
         )
