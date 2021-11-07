@@ -6,8 +6,9 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 data class IdeaPluginXml(
     val id: String,
     val name: String,
-    val description: String,
+    val description: String?,
     val version: String,
     val vendor: String,
     val changeNotes: String,
+    val ideaVersion: IdeaVersion?,
 )
