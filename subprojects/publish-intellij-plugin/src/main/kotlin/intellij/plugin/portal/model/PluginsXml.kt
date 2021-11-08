@@ -17,6 +17,7 @@ data class PluginsXml(
         @JacksonXmlProperty(isAttribute = true)
         var version: String,
 
+        val name: String? = null,
         val ideaVersion: IdeaVersion? = null
     )
 }
