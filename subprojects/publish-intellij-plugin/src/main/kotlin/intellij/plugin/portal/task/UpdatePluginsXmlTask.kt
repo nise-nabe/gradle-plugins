@@ -27,7 +27,6 @@ abstract class UpdatePluginsXmlTask: DefaultTask() {
 
     @TaskAction
     fun updatePluginXml() {
-
         val plugin = parser.readPluginXml(pluginXml.get().asFile)
 
         val plugins = parser.readPluginsXml(updatePluginsXml.get().asFile)
@@ -37,6 +36,7 @@ abstract class UpdatePluginsXmlTask: DefaultTask() {
             it.version = plugin.version
         } ?: plugins.plugin.add(PluginsXml.Plugin(
             id = plugin.id,
+            name = project.name,
             url = pluginUrl.get(),
             version = plugin.version,
         ))
