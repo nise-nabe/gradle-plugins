@@ -22,6 +22,7 @@ class IntellijPluginPortalPlugin: Plugin<Project> {
             // search plugin.xml from META-INF directory
             pluginXml.set(layout.buildDirectory.file("resources/main/META-INF/plugin.xml"))
             updatePluginsXml.set(portal.updatePluginsXml)
+            pluginUrl.set(portal.pluginUrl)
 
             // execute after copy from resources to build classpath
             dependsOn(tasks.getByName(JavaPlugin.PROCESS_RESOURCES_TASK_NAME))

@@ -1,6 +1,7 @@
 package com.nisecoder.gradle.plugin
 
 import com.nisecoder.gradle.plugin.test.writeKotlin
+import com.nisecoder.gradle.plugin.test.writeXml
 import org.assertj.core.api.Assertions
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
@@ -29,18 +30,32 @@ class IntellijPluginPortalPluginTest {
             plugins {
               id("com.nisecoder.intellij-plugin.portal")
             }
+            intellijPortal {
+                pluginUrl.set(uri("https://exmaple.com"))
+            }
+            
         """.trimIndent())
+
+        testProjectDir.resolve("updatePlugins.xml").apply {
+            writeXml("""
+                <?xml version="1.0" encoding="UTF-8" ?>
+                <plugins>
+                </plugins>
+            """.trimIndent())
+        }
 
         testProjectDir.resolve("src/main/resources/META-INF").apply {
             if (!exists()) mkdirs()
         }.resolve("plugin.xml").apply {
-            // language=xml
-            writeText("""
+            writeXml("""
                 <?xml version="1.0" encoding="UTF-8" ?>
                 <plugin>
-                    <id>1</id>
+                    <id>com.example.plugin</id>
+                    <name>Example Plugin</name>
+                    <version>1.0</version>
+                    <vendor>example name</vendor>
+                    <change-notes>change note</change-notes>
                 </plugin>
-                
             """.trimIndent())
         }
 

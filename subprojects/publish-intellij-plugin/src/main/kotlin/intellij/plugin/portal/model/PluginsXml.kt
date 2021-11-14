@@ -3,6 +3,7 @@ package com.nisecoder.gradle.plugin.intellij.plugin.portal.model
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import java.net.URL
 
 @JacksonXmlRootElement(localName = "plugins")
 data class PluginsXml(
@@ -13,7 +14,7 @@ data class PluginsXml(
         @JacksonXmlProperty(isAttribute = true)
         val id: String,
         @JacksonXmlProperty(isAttribute = true)
-        var url: String,
+        var url: URL,
         @JacksonXmlProperty(isAttribute = true)
         var version: String,
 

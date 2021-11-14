@@ -6,6 +6,7 @@ import com.nisecoder.gradle.plugin.intellij.plugin.portal.model.PluginsXml
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.net.URL
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
@@ -50,7 +51,7 @@ class PluginsXmlTest {
         val result = ideaPluginXmlParser.readPluginsXml(pluginsXml)
 
         assertEquals("fully.qualified.id.of.this.plugin", result.plugin[0].id)
-        assertEquals("https://www.mycompany.com/my_repository/mypluginname.jar", result.plugin[0].url)
+        assertEquals(URL("https://www.mycompany.com/my_repository/mypluginname.jar"), result.plugin[0].url)
         assertEquals("major.minor.update", result.plugin[0].version)
         assertEquals("181.3", result.plugin[0].ideaVersion!!.sinceBuild)
         assertEquals("191.*", result.plugin[0].ideaVersion!!.untilBuild)
@@ -65,7 +66,7 @@ class PluginsXmlTest {
             plugin = mutableListOf(
                 PluginsXml.Plugin(
                     id = "fully.qualified.id.of.this.plugin",
-                    url = "https://www.mycompany.com/my_repository/mypluginname.jar",
+                    url = URL("https://www.mycompany.com/my_repository/mypluginname.jar"),
                     version = "major.minor.update",
                     ideaVersion = IdeaVersion(
                         sinceBuild = "181.3",
@@ -74,7 +75,7 @@ class PluginsXmlTest {
                 ),
                 PluginsXml.Plugin(
                     id = "id.of.different.plugin",
-                    url = "https://www.otherserver.com/other_repository/differentplugin.jar",
+                    url = URL("https://www.otherserver.com/other_repository/differentplugin.jar"),
                     version = "major.minor",
                     ideaVersion = IdeaVersion(
                         sinceBuild = "181.3",
@@ -83,7 +84,7 @@ class PluginsXmlTest {
                 ),
                 PluginsXml.Plugin(
                     id = "id.of.no.idea.version.plugin",
-                    url = "https://www.otherserver.com/other_repository/differentplugin.jar",
+                    url = URL("https://www.otherserver.com/other_repository/differentplugin.jar"),
                     version = "major.minor",
                 ),
             )
