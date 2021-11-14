@@ -29,6 +29,7 @@ include("asciidoctor")
 include("github-actions")
 include("lib-gradle-test")
 include("publish-intellij-plugin")
+include("github-release-upload")
 
 for (project in rootProject.children) {
     val projectPath = file("subprojects/${project.name}")
