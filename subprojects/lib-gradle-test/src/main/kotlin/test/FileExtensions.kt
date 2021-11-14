@@ -13,3 +13,7 @@ fun File.writeKotlin(@Language("kotlin") src: String) {
 fun File.writeGroovy(@Language("Groovy") src: String) {
     writeText(src)
 }
+
+fun File.writeXml(@Language("XML") src: String) {
+    writeText(src)
+}

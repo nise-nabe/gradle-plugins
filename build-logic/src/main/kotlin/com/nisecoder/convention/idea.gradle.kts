@@ -11,7 +11,9 @@ plugins {
 idea {
     module {
         (this as ExtensionAware).extensions.configure<ModuleSettings> {
-            (this as ExtensionAware).extensions.getByType<PackagePrefixContainer>()["src/main/kotlin"] = "com.nisecoder.gradle.plugin"
+            val packagePrefix = (this as ExtensionAware).extensions.getByType<PackagePrefixContainer>()
+            packagePrefix["src/main/kotlin"] = "com.nisecoder.gradle.plugin"
+            packagePrefix["src/test/kotlin"] = "com.nisecoder.gradle.plugin"
         }
     }
 }

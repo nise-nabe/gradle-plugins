@@ -6,6 +6,7 @@ import org.gradle.kotlin.dsl.project
 
 plugins {
     java
+    `maven-publish`
     id("com.gradle.plugin-publish")
 }
 
@@ -24,4 +25,17 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "gitHubPackages"
+            url = uri("https://maven.pkg.github.com/nise-nabe/gradle-plugins")
+            // set ~/.gradle/gradle.properties
+            // gitHubPackagesUsername
+            // gitHubPackagesPassword
+            credentials(PasswordCredentials::class)
+        }
+    }
 }
