@@ -24,7 +24,7 @@ abstract class GitHubReleaseUploadTask: DefaultTask() {
     @get:Input
     abstract val githubRepository: Property<String>
     @get:Input
-    abstract val releaseVersion: Property<String>
+    abstract val releaseName: Property<String>
     @get:InputFile
     abstract val releaseFile: RegularFileProperty
 
@@ -48,7 +48,7 @@ abstract class GitHubReleaseUploadTask: DefaultTask() {
             header("Authorization", "token ${githubToken.get()}")
             uri(URI("https://api.github.com/repos/${ githubRepository.get() }/releases"))
         }.build(), HttpResponse.BodyHandlers.ofString()).body()
-        val release = mapper.readValue<List<Release>>(releaseListResult).find { it.tagName == releaseVersion.get() } ?: throw GradleException("Release not found")
+        val release = mapper.readValue<List<Release>>(releaseListResult).find { it.tagName == releaseName.get() } ?: throw GradleException("Release not found")
 
         val uploadUrl = URI("https://uploads.github.com/repos/${ githubRepository.get() }/releases/${ release.id }/assets?name=${ releaseFile.get().asFile.name }")
         logger.info("upload to $uploadUrl")
