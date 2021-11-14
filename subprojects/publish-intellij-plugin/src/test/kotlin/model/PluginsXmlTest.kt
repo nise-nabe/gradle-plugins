@@ -1,6 +1,7 @@
 package com.nisecoder.gradle.plugin.model
 
 import com.nisecoder.gradle.plugin.intellij.plugin.portal.IdeaPluginXmlParser
+import com.nisecoder.gradle.plugin.intellij.plugin.portal.model.IdeaVersion
 import com.nisecoder.gradle.plugin.intellij.plugin.portal.model.PluginsXml
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -66,7 +67,7 @@ class PluginsXmlTest {
                     id = "fully.qualified.id.of.this.plugin",
                     url = "https://www.mycompany.com/my_repository/mypluginname.jar",
                     version = "major.minor.update",
-                    ideaVersion = PluginsXml.IdeaVersion(
+                    ideaVersion = IdeaVersion(
                         sinceBuild = "181.3",
                         untilBuild = "191.*"
                     )
@@ -75,7 +76,7 @@ class PluginsXmlTest {
                     id = "id.of.different.plugin",
                     url = "https://www.otherserver.com/other_repository/differentplugin.jar",
                     version = "major.minor",
-                    ideaVersion = PluginsXml.IdeaVersion(
+                    ideaVersion = IdeaVersion(
                         sinceBuild = "181.3",
                         untilBuild = "191.*"
                     )
