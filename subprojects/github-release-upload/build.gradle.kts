@@ -9,7 +9,7 @@ gradlePlugin {
     plugins {
         register("github-release-upload") {
             id = "com.nisecoder.github-release-upload"
-            implementationClass = "com.nisecoder.gradle.plugin.GitHubReleaseUpload"
+            implementationClass = "com.nisecoder.gradle.plugin.GitHubReleaseUploadPlugin"
             description = "convention plugin to upload to GitHub Release"
         }
     }
