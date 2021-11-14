@@ -1,5 +1,7 @@
 package com.nisecoder.gradle.plugin
 
+import com.nisecoder.gradle.plugin.github.task.PublishToGitHubPackages
+import com.nisecoder.gradle.plugin.github.task.PublishToGitHubRelease
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -15,7 +17,7 @@ class GitHubPublishPlugin: Plugin<Project> {
 
         // affect to `maven-publish` plugin
         plugins.withType<MavenPublishPlugin> {
-            tasks.register<DefaultTask>("publishToGitHubPackages") {
+            tasks.register<PublishToGitHubPackages>("publishToGitHubPackages") {
                 description = "Publishes publications to GitHub Packages"
                 group = PublishingPlugin.PUBLISH_TASK_GROUP
 
@@ -23,7 +25,7 @@ class GitHubPublishPlugin: Plugin<Project> {
             }
         }
 
-        tasks.register<DefaultTask>("publishToGitHubRelease") {
+        tasks.register<PublishToGitHubRelease>("publishToGitHubRelease") {
             description = "Publishes publications to GitHub Release"
             group = PublishingPlugin.PUBLISH_TASK_GROUP
 
