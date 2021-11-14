@@ -54,7 +54,7 @@ abstract class GitHubReleaseUploadTask: DefaultTask() {
         logger.info("upload to $uploadUrl")
         val result = HttpClient.newHttpClient().send(HttpRequest.newBuilder().apply {
             header("Authorization", "token ${githubToken.get()}")
-            header("Content-Type", "application/octet-stream")
+            header("Content-Type", "application/zip")
             POST(HttpRequest.BodyPublishers.ofFile(releaseFile.get().asFile.toPath()))
             uri(uploadUrl)
         }.build(), HttpResponse.BodyHandlers.ofString())
