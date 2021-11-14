@@ -2,7 +2,6 @@ package com.nisecoder.gradle.plugin
 
 import com.nisecoder.gradle.plugin.github.task.PublishToGitHubPackages
 import com.nisecoder.gradle.plugin.github.task.PublishToGitHubRelease
-import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
