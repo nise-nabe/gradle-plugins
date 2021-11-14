@@ -30,6 +30,7 @@ include("github-actions")
 include("lib-gradle-test")
 include("publish-intellij-plugin")
 include("github-release-upload")
+include("github-publish")
 
 for (project in rootProject.children) {
     val projectPath = file("subprojects/${project.name}")
