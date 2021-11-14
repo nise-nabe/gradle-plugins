@@ -50,7 +50,7 @@ abstract class GitHubReleaseUploadTask: DefaultTask() {
         }.build(), HttpResponse.BodyHandlers.ofString()).body()
         val release = mapper.readValue<List<Release>>(releaseListResult).find { it.tagName == releaseVersion.get() } ?: throw GradleException("Release not found")
 
-        val uploadUrl = URI("https://uploads.github.com/repos/${ githubRepository.get() }/releases/${ release.id}/assets?name=${ releaseFile.get().asFile.name }")
+        val uploadUrl = URI("https://uploads.github.com/repos/${ githubRepository.get() }/releases/${ release.id }/assets?name=${ releaseFile.get().asFile.name }")
         logger.info("upload to $uploadUrl")
         val result = HttpClient.newHttpClient().send(HttpRequest.newBuilder().apply {
             header("Authorization", "token ${githubToken.get()}")
