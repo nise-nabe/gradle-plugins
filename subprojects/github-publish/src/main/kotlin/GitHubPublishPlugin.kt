@@ -15,6 +15,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 
+@Suppress("unused")
 class GitHubPublishPlugin: Plugin<Project> {
     override fun apply(project: Project): Unit = project.run {
         plugins.apply(PublishingPlugin::class)
