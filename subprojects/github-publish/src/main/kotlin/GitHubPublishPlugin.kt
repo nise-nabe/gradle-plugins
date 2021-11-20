@@ -2,12 +2,13 @@ package com.nisecoder.gradle.plugin
 
 import com.nisecoder.gradle.plugin.github.publish.GitHubPublication
 import com.nisecoder.gradle.plugin.github.publish.GitHubPublicationFactory
-import com.nisecoder.gradle.plugin.github.task.PublishToGitHubPackages
 import com.nisecoder.gradle.plugin.github.task.PublishToGitHubRelease
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
+import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.api.publish.plugins.PublishingPlugin
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
@@ -18,37 +19,40 @@ class GitHubPublishPlugin: Plugin<Project> {
     override fun apply(project: Project): Unit = project.run {
         plugins.apply(PublishingPlugin::class)
 
-        // affect to `maven-publish` plugin
         configure<PublishingExtension> {
             publications.registerFactory(GitHubPublication::class.java, GitHubPublicationFactory(objects))
             val gitHubPublications = publications.withType<GitHubPublication>()
 
             gitHubPublications.all {
-                registerTasks(this)
+                val targetPublication = this
+                tasks.register<PublishToGitHubRelease>("publishToGitHubRelease") {
+                    description = "Publishes publications to GitHub Release"
+                    group = PublishingPlugin.PUBLISH_TASK_GROUP
+
+                    publication = targetPublication
+
+                    dependsOn(tasks.getByName("publish"))
+                }
             }
         }
 
-    }
-
-    private fun Project.registerTasks(targetPublication: GitHubPublication) {
+        // affect to `maven-publish` plugin
         plugins.withType<MavenPublishPlugin> {
-            tasks.register<PublishToGitHubPackages>("publishToGitHubPackages") {
-                description = "Publishes publications to GitHub Packages"
-                group = PublishingPlugin.PUBLISH_TASK_GROUP
+            configure<PublishingExtension> {
+                val mavenPublications = publications.withType<MavenPublication>()
 
-                publication = targetPublication
+                mavenPublications.all {
+                    val mavenPublication = this
+                    tasks.register<PublishToMavenRepository>("publishToGitHubPackages") {
+                        description = "Publishes publications to GitHub Packages"
+                        group = PublishingPlugin.PUBLISH_TASK_GROUP
 
-                dependsOn(tasks.getByName("publish"))
+                        publication = mavenPublication
+
+                        dependsOn(tasks.getByName("publish"))
+                    }
+                }
             }
-        }
-
-        tasks.register<PublishToGitHubRelease>("publishToGitHubRelease") {
-            description = "Publishes publications to GitHub Release"
-            group = PublishingPlugin.PUBLISH_TASK_GROUP
-
-            publication = targetPublication
-
-            dependsOn(tasks.getByName("publish"))
         }
     }
 }

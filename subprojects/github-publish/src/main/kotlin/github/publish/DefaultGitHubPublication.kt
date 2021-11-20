@@ -5,6 +5,10 @@ class DefaultGitHubPublication(
 ): GitHubPublication {
     private var withBuildIdentifier = false
 
+    override fun artifact(source: Any): GitHubReleaseArtifact {
+        TODO("Not yet implemented")
+    }
+
     /**
      * The object's name.
      *
