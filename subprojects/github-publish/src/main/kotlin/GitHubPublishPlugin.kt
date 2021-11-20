@@ -45,8 +45,6 @@ class GitHubPublishPlugin: Plugin<Project> {
 
                 dependsOn(named("publish"))
             }
-
         }
-
     }
 }
