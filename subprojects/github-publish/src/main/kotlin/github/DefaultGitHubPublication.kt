@@ -16,15 +16,6 @@ class DefaultGitHubPublication(
     override fun getName() = name
 
     /**
-     * The object's name.
-     *
-     *
-     * Must be constant for the life of the object.
-     *
-     * @return The name. Never null.
-     */
-
-    /**
      * Disables publication of a unique build identifier in Gradle Module Metadata.
      *
      *
