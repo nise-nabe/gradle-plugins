@@ -1,4 +1,4 @@
-package com.nisecoder.gradle.plugin.github
+package com.nisecoder.gradle.plugin.github.publish
 
 import org.gradle.api.publish.Publication
 

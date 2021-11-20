@@ -1,6 +1,6 @@
 package com.nisecoder.gradle.plugin.github.task
 
-import com.nisecoder.gradle.plugin.github.GitHubPublication
+import com.nisecoder.gradle.plugin.github.publish.GitHubPublication
 import org.gradle.api.DefaultTask
 import org.gradle.api.credentials.Credentials
 import org.gradle.api.provider.Property

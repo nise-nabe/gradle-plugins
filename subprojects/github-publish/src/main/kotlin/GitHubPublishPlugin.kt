@@ -1,7 +1,7 @@
 package com.nisecoder.gradle.plugin
 
-import com.nisecoder.gradle.plugin.github.GitHubPublication
-import com.nisecoder.gradle.plugin.github.GitHubPublicationFactory
+import com.nisecoder.gradle.plugin.github.publish.GitHubPublication
+import com.nisecoder.gradle.plugin.github.publish.GitHubPublicationFactory
 import com.nisecoder.gradle.plugin.github.task.PublishToGitHubPackages
 import com.nisecoder.gradle.plugin.github.task.PublishToGitHubRelease
 import org.gradle.api.Plugin
