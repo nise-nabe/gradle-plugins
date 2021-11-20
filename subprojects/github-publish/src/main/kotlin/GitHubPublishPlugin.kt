@@ -2,6 +2,7 @@ package com.nisecoder.gradle.plugin
 
 import com.nisecoder.gradle.plugin.github.publish.GitHubPublication
 import com.nisecoder.gradle.plugin.github.publish.GitHubPublicationFactory
+import com.nisecoder.gradle.plugin.github.publish.GitHubReleaseRepository
 import com.nisecoder.gradle.plugin.github.task.PublishToGitHubRelease
 import org.gradle.api.NamedDomainObjectCollection
 import org.gradle.api.Plugin
