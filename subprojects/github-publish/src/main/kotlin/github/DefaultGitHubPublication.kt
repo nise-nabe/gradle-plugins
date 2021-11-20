@@ -1,6 +1,10 @@
 package com.nisecoder.gradle.plugin.github
 
-class DefaultGitHubPublication: GitHubPublication {
+class DefaultGitHubPublication(
+    private val name: String,
+): GitHubPublication {
+    private var withBuildIdentifier = false
+
     /**
      * The object's name.
      *
@@ -9,9 +13,16 @@ class DefaultGitHubPublication: GitHubPublication {
      *
      * @return The name. Never null.
      */
-    override fun getName(): String {
-        TODO("Not yet implemented")
-    }
+    override fun getName() = name
+
+    /**
+     * The object's name.
+     *
+     *
+     * Must be constant for the life of the object.
+     *
+     * @return The name. Never null.
+     */
 
     /**
      * Disables publication of a unique build identifier in Gradle Module Metadata.
@@ -22,7 +33,7 @@ class DefaultGitHubPublication: GitHubPublication {
      * @since 6.6
      */
     override fun withoutBuildIdentifier() {
-        TODO("Not yet implemented")
+        withBuildIdentifier = false
     }
 
     /**
@@ -34,6 +45,6 @@ class DefaultGitHubPublication: GitHubPublication {
      * @since 6.6
      */
     override fun withBuildIdentifier() {
-        TODO("Not yet implemented")
+        withBuildIdentifier = true
     }
 }
