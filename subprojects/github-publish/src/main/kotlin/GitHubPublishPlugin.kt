@@ -42,7 +42,7 @@ class GitHubPublishPlugin: Plugin<Project> {
                 group = PublishingPlugin.PUBLISH_TASK_GROUP
 
                 publication = targetPublication
-                githubRepository.set(repository.url)
+                githubRepository.set(repository.url.toString())
 
                 dependsOn(named("publish"))
             }
