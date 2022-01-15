@@ -24,7 +24,6 @@
             <option value="$PROJECT_DIR$/subprojects/asciidoctor" />
             <option value="$PROJECT_DIR$/subprojects/ci-detect" />
             <option value="$PROJECT_DIR$/subprojects/github-actions" />
-            <option value="$PROJECT_DIR$/subprojects/github-publish" />
             <option value="$PROJECT_DIR$/subprojects/github-release-upload" />
             <option value="$PROJECT_DIR$/subprojects/idea-ext-ext" />
             <option value="$PROJECT_DIR$/subprojects/lib-gradle-test" />
