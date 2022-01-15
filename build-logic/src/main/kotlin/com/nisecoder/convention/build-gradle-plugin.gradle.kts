@@ -30,11 +30,11 @@ tasks.test {
 publishing {
     repositories {
         maven {
-            name = "gitHubPackages"
+            name = "GitHub"
             url = uri("https://maven.pkg.github.com/nise-nabe/gradle-plugins")
             // set ~/.gradle/gradle.properties
-            // gitHubPackagesUsername
-            // gitHubPackagesPassword
+            // GitHubUsername
+            // GitHubPassword
             credentials(PasswordCredentials::class)
         }
     }
