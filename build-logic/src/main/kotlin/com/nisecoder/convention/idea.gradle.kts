@@ -1,7 +1,7 @@
 package com.nisecoder.convention
 
-import org.jetbrains.gradle.ext.ModuleSettings
-import org.jetbrains.gradle.ext.PackagePrefixContainer
+import org.jetbrains.gradle.ext.settings
+import org.jetbrains.gradle.ext.packagePrefix
 
 plugins {
     idea
@@ -10,8 +10,7 @@ plugins {
 
 idea {
     module {
-        (this as ExtensionAware).extensions.configure<ModuleSettings> {
-            val packagePrefix = (this as ExtensionAware).extensions.getByType<PackagePrefixContainer>()
+        settings {
             packagePrefix["src/main/kotlin"] = "com.nisecoder.gradle.plugin"
             packagePrefix["src/test/kotlin"] = "com.nisecoder.gradle.plugin"
         }
