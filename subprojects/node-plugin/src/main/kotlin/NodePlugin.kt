@@ -1,5 +1,6 @@
 package com.nisecoder.gradle.plugin
 
+import com.nisecoder.gradle.plugin.node.NodeProvisioningService
 import com.nisecoder.gradle.plugin.node.NodeTask
 import com.nisecoder.gradle.plugin.node.YarnService
 import com.nisecoder.gradle.plugin.node.YarnTask
@@ -12,16 +13,26 @@ import org.gradle.kotlin.dsl.registerIfAbsent
 @Suppress("unused")
 class NodePlugin: Plugin<Project> {
     override fun apply(project: Project): Unit = project.run {
-        val serviceProvider = gradle.sharedServices.registerIfAbsent("yarn", YarnService::class) {
+        val nodeProvisioningServiceProvider = gradle.sharedServices.registerIfAbsent("nodeProvisioning", NodeProvisioningService::class) {
+            parameters {
+                nodeVersion.set("v16.14.0")
+                osName.set("win")
+                archName.set("x64")
+                ext.set("zip")
+            }
+            maxParallelUsages.set(1)
+        }
+        val yarnServiceProvider = gradle.sharedServices.registerIfAbsent("yarn", YarnService::class) {
             maxParallelUsages.set(1)
         }
 
         tasks {
             register<NodeTask>("node") {
+                nodeProvisioningService.set(nodeProvisioningServiceProvider)
             }
 
             register<YarnTask>("yarn") {
-                nodeService.set(serviceProvider)
+                yarnService.set(yarnServiceProvider)
             }
         }
     }

@@ -7,10 +7,10 @@ import org.gradle.api.tasks.TaskAction
 
 abstract class YarnTask: DefaultTask() {
     @get:Internal
-    abstract val nodeService: Property<YarnService>
+    abstract val yarnService: Property<YarnService>
 
     @TaskAction
     fun exec() {
-        nodeService.get().exec()
+        yarnService.get().exec()
     }
 }

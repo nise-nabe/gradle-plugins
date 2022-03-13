@@ -1,7 +1,6 @@
 package com.nisecoder.gradle.plugin
 
 import com.nisecoder.gradle.plugin.test.writeKotlin
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
@@ -35,7 +34,7 @@ internal class NodePluginTest {
         val buildResult = GradleRunner.create()
             .withProjectDir(testProjectDir)
             .withPluginClasspath()
-            .withArguments("node")
+            .withArguments("node", "--stacktrace")
             .build()
 
         val taskResult = buildResult.task(":node")

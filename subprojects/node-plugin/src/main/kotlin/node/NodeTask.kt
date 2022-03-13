@@ -1,23 +1,59 @@
 package com.nisecoder.gradle.plugin.node
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.FileTree
+import org.gradle.api.internal.file.FileOperations
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
+import org.gradle.initialization.GradleUserHomeDirProvider
+import org.gradle.process.ExecOperations
+import java.io.File
 import java.nio.file.Path
+import javax.inject.Inject
 
 abstract class NodeTask: DefaultTask() {
+    @get:Internal
+    abstract val nodeProvisioningService: Property<NodeProvisioningService>
+
+    @get:Inject
+    abstract val fileOperations: FileOperations
+
+    @get:Inject
+    abstract val execOperations: ExecOperations
+
+    @get:Inject
+    abstract val gradleUserHomeDirProvider: GradleUserHomeDirProvider
+
     @TaskAction
     fun exec() {
-        val uri = URI.create("https://nodejs.org/dist/v16.14.0/node-v16.14.0-win-x64.zip")
-        val request = HttpRequest.newBuilder(uri).GET().build()
-        val client = HttpClient.newHttpClient()
-        val dist = Path.of(".").resolve("node-v16.14.0-win-x64.zip")
+        val nodeCacheDir = gradleUserHomeDirProvider.gradleUserHomeDirectory.resolve("node").also {
+            if (!it.exists()) {
+                it.mkdirs()
+                logger.debug("Created node directory: {}", it)
+            } else {
+                logger.debug("node directory already exists: {}", it)
+            }
+        }
 
-        client.send(request, HttpResponse.BodyHandlers.ofFile(dist))
+        val path = nodeProvisioningService.get().provision(nodeCacheDir.toPath())
+        val unpacked = unpack(path)
 
-        logger.lifecycle("Downloaded ${dist.toAbsolutePath()}")
+        logger.info("Unpacked node to ${unpacked.absolutePath}")
+
+        execOperations.exec {
+            commandLine(unpacked.resolve("node.exe"), "-v")
+        }
+    }
+
+    private fun unpack(path: Path): File {
+        val fileTree: FileTree = fileOperations.zipTree(path)
+        val installationDir = path.parent.toFile()
+        fileOperations.copy {
+            from(fileTree)
+            into(installationDir)
+        }
+        val unpackedDirName = path.toFile().name.let { it.substring(0, it.lastIndexOf('.')) }
+        return installationDir.resolve(unpackedDirName)
     }
 }
