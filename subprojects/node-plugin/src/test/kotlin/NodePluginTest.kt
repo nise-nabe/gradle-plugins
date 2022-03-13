@@ -2,6 +2,7 @@ package com.nisecoder.gradle.plugin
 
 import com.nisecoder.gradle.plugin.test.writeKotlin
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.junit.jupiter.api.BeforeEach
@@ -34,11 +35,12 @@ internal class NodePluginTest {
         val buildResult = GradleRunner.create()
             .withProjectDir(testProjectDir)
             .withPluginClasspath()
-            .withArguments("help")
+            .withArguments("node")
             .build()
 
-        val taskResult = buildResult.task(":help")
+        val taskResult = buildResult.task(":node")
         assertNotNull(taskResult)
-        Assertions.assertThat(taskResult.outcome).isIn(TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE)
+        assertThat(taskResult.outcome).isIn(TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE)
+        println(buildResult.output)
     }
 }
