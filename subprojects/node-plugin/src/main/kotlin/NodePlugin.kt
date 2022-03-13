@@ -1,21 +1,28 @@
 package com.nisecoder.gradle.plugin
 
-import com.nisecoder.gradle.plugin.node.NodeService
 import com.nisecoder.gradle.plugin.node.NodeTask
+import com.nisecoder.gradle.plugin.node.YarnService
+import com.nisecoder.gradle.plugin.node.YarnTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.register
+import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.registerIfAbsent
 
 @Suppress("unused")
 class NodePlugin: Plugin<Project> {
     override fun apply(project: Project): Unit = project.run {
-        val serviceProvider = gradle.sharedServices.registerIfAbsent("node", NodeService::class) {
+        val serviceProvider = gradle.sharedServices.registerIfAbsent("yarn", YarnService::class) {
             maxParallelUsages.set(1)
         }
 
-        tasks.register<NodeTask>("node") {
-            nodeService.set(serviceProvider)
+        tasks {
+            register<NodeTask>("node") {
+            }
+
+            register<YarnTask>("yarn") {
+                nodeService.set(serviceProvider)
+            }
         }
     }
 }

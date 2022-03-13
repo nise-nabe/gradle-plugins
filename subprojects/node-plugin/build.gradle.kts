@@ -10,7 +10,7 @@ gradlePlugin {
         register("node-plugin") {
             id = "com.nisecoder.node"
             implementationClass = "com.nisecoder.gradle.plugin.NodePlugin"
-            description = "convention plugin for node.js integation"
+            description = "convention plugin for node.js integration"
         }
     }
 }
