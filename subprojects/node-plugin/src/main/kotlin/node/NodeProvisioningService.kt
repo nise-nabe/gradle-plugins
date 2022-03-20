@@ -11,7 +11,7 @@ import java.nio.file.Path
 
 abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Params> {
     interface Params: BuildServiceParameters {
-        val osName: Property<String>
+        val osName: Property<NodeBinaryOsName>
         val archName: Property<String>
         val nodeVersion: Property<String>
         val ext: Property<String>

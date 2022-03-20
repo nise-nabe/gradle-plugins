@@ -1,5 +1,6 @@
 package com.nisecoder.gradle.plugin
 
+import com.nisecoder.gradle.plugin.node.NodeBinaryOsName
 import com.nisecoder.gradle.plugin.node.NodeProvisioningService
 import com.nisecoder.gradle.plugin.node.NodeTask
 import com.nisecoder.gradle.plugin.node.OsDetect
@@ -18,13 +19,18 @@ class NodePlugin: Plugin<Project> {
             parameters {
                 nodeVersion.set("v16.14.0")
                 osName.set(when {
-                    OsDetect.isWindows() -> "win"
-                    OsDetect.isMac() -> "darwin"
-                    OsDetect.isUnix() -> "linux"
+                    OsDetect.isWindows() -> NodeBinaryOsName.win
+                    OsDetect.isMac() -> NodeBinaryOsName.darwin
+                    OsDetect.isUnix() -> NodeBinaryOsName.linux
                     else -> throw IllegalStateException("Unsupported OS")
                 })
                 archName.set("x64")
-                ext.set("zip")
+                ext.set(when {
+                    OsDetect.isWindows() -> "zip"
+                    OsDetect.isMac() -> "tar.gz"
+                    OsDetect.isUnix() -> "tar.xz"
+                    else -> throw IllegalStateException("Unsupported OS")
+                })
             }
             maxParallelUsages.set(1)
         }
