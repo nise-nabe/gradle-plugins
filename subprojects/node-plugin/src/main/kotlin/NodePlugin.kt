@@ -24,7 +24,7 @@ class NodePlugin: Plugin<Project> {
                     OsDetect.isUnix() -> NodeBinaryOsName.linux
                     else -> throw IllegalStateException("Unsupported OS")
                 })
-                archName.set("x64")
+                archName.set(System.getProperty("os.arch"))
                 ext.set(when {
                     OsDetect.isWindows() -> "zip"
                     OsDetect.isMac() -> "tar.gz"
