@@ -2,6 +2,7 @@ package com.nisecoder.gradle.plugin
 
 import com.nisecoder.gradle.plugin.node.NodeProvisioningService
 import com.nisecoder.gradle.plugin.node.NodeTask
+import com.nisecoder.gradle.plugin.node.OsDetect
 import com.nisecoder.gradle.plugin.node.YarnService
 import com.nisecoder.gradle.plugin.node.YarnTask
 import org.gradle.api.Plugin
@@ -16,7 +17,12 @@ class NodePlugin: Plugin<Project> {
         val nodeProvisioningServiceProvider = gradle.sharedServices.registerIfAbsent("nodeProvisioning", NodeProvisioningService::class) {
             parameters {
                 nodeVersion.set("v16.14.0")
-                osName.set("win")
+                osName.set(when {
+                    OsDetect.isWindows() -> "win"
+                    OsDetect.isMac() -> "darwin"
+                    OsDetect.isUnix() -> "linux"
+                    else -> throw IllegalStateException("Unsupported OS")
+                })
                 archName.set("x64")
                 ext.set("zip")
             }
