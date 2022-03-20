@@ -16,7 +16,11 @@ class OsDetect {
         }
 
         fun isUnix(): Boolean {
-            return os.let { it.indexOf("nix") >= 0 || it.indexOf("nux") >= 0 || it.indexOf("aix") > 0 }
+            return os.let { it.indexOf("nix") >= 0 || it.indexOf("nux") >= 0 }
+        }
+
+        fun isAix(): Boolean {
+            return os.indexOf("aix") > 0
         }
     }
 }

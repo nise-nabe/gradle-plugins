@@ -11,14 +11,18 @@ import java.nio.file.Path
 
 abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Params> {
     interface Params: BuildServiceParameters {
-        val osName: Property<NodeBinaryOsName>
-        val archName: Property<String>
         val nodeVersion: Property<String>
-        val ext: Property<String>
+        val nodeBinaryType: Property<NodeBinaryType>
     }
 
     fun provision(nodeCachePath: Path): Path {
-        val fileName = "node-${parameters.nodeVersion.get()}-${parameters.osName.get()}-${parameters.archName.get()}.${parameters.ext.get()}"
+        val fileName = parameters.nodeBinaryType.get().let {
+            val osName = it.osName
+            val arch = it.arch
+            val ext = it.ext
+            "node-${parameters.nodeVersion.get()}-$osName-$arch.$ext"
+        }
+
         val uri = URI.create("https://nodejs.org/dist/${parameters.nodeVersion.get()}/$fileName")
         val request = HttpRequest.newBuilder(uri).GET().build()
         val client = HttpClient.newHttpClient()
