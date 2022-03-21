@@ -17,3 +17,7 @@ fun File.writeGroovy(@Language("gradle") src: String) {
 fun File.writeXml(@Language("XML") src: String) {
     writeText(src)
 }
+
+fun File.writeJson(@Language("json") src: String) {
+    writeText(src)
+}
