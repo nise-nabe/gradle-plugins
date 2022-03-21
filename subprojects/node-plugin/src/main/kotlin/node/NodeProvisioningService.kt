@@ -45,7 +45,11 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
     }
 
     private fun FileOperations.unpack(path: Path): Path {
-        val fileTree: FileTree = zipTree(path)
+        val fileTree: FileTree = if (parameters.nodeBinaryType.get().ext == "zip") {
+            zipTree(path)
+        } else {
+            tarTree(path)
+        }
         val installationDir = path.parent.toFile()
         copy {
             from(fileTree)
