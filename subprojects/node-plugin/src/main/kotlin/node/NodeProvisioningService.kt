@@ -47,11 +47,16 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
             dist.delete()
         }
 
+        val resolver = NodeBinaryPathResolver(installationDir, parameters.nodeBinaryType.get())
+        return resolver.toNodeBinary()
+    }
+
+    private fun NodeBinaryPathResolver.toNodeBinary(): NodeBinary {
         return NodeBinary(
-            resolveNode(installationDir),
-            resolveNpm(installationDir),
-            resolveNpx(installationDir),
-            installationDir
+            installPath,
+            resolveNode(),
+            resolveNpm(),
+            resolveNpx(),
         )
     }
 
@@ -69,27 +74,4 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
         return installationDir
     }
 
-    private fun resolveNode(path: Path): Path {
-        return if (parameters.nodeBinaryType.get().osName == "win") {
-            path.resolve("node.exe")
-        } else {
-            path.resolve("bin").resolve("node")
-        }
-    }
-
-    private fun resolveNpm(path: Path): Path {
-        return if (parameters.nodeBinaryType.get().osName == "win") {
-            path.resolve("npm.cmd")
-        } else {
-            path.resolve("bin").resolve("npm")
-        }
-    }
-
-    private fun resolveNpx(path: Path): Path {
-        return if (parameters.nodeBinaryType.get().osName == "win") {
-            path.resolve("npx.cmd")
-        } else {
-            path.resolve("bin").resolve("npx")
-        }
-    }
 }
