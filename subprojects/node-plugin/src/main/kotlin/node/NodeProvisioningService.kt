@@ -1,5 +1,6 @@
 package com.nisecoder.gradle.plugin.node
 
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
@@ -11,27 +12,31 @@ import java.nio.file.Path
 
 abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Params> {
     interface Params: BuildServiceParameters {
-        val nodeVersion: Property<String>
         val nodeBinaryType: Property<NodeBinaryType>
+        val nodeCachePath: DirectoryProperty
     }
 
-    fun provision(nodeCachePath: Path): Path {
+    fun provision(nodeVersion: String): Path {
+        val nodeCacheDir = parameters.nodeCachePath.get().asFile.also {
+            if (!it.exists()) {
+                it.mkdirs()
+            }
+        }
         val fileName = parameters.nodeBinaryType.get().let {
             val osName = it.osName
             val arch = it.arch
             val ext = it.ext
-            "node-${parameters.nodeVersion.get()}-$osName-$arch.$ext"
+            "node-$nodeVersion-$osName-$arch.$ext"
         }
 
-        val uri = URI.create("https://nodejs.org/dist/${parameters.nodeVersion.get()}/$fileName")
-        val request = HttpRequest.newBuilder(uri).GET().build()
-        val client = HttpClient.newHttpClient()
-        val dist = nodeCachePath.resolve(fileName)
-
-        if (!dist.toFile().exists()) {
-            client.send(request, HttpResponse.BodyHandlers.ofFile(dist))
+        val dist = nodeCacheDir.resolve(fileName)
+        if (!dist.exists()) {
+            val uri = URI.create("https://nodejs.org/dist/$nodeVersion/$fileName")
+            val request = HttpRequest.newBuilder(uri).GET().build()
+            val client = HttpClient.newHttpClient()
+            client.send(request, HttpResponse.BodyHandlers.ofFile(dist.toPath()))
         }
-        return dist
+        return dist.toPath()
     }
 
 }

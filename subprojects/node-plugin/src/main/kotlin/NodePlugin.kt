@@ -17,10 +17,12 @@ class NodePlugin: Plugin<Project> {
         val binaryType = NodeBinaryTypeSelector.select()
         logger.debug("os.name = ${NodeBinaryTypeSelector.getOsName()}")
         logger.debug("os.arch = ${NodeBinaryTypeSelector.getOsArch()}")
+
+        val nodeCacheDir = gradle.gradleUserHomeDir.resolve("node")
         val nodeProvisioningServiceProvider = gradle.sharedServices.registerIfAbsent("nodeProvisioning", NodeProvisioningService::class) {
             parameters {
-                nodeVersion.set("v16.14.0")
                 nodeBinaryType.set(binaryType)
+                nodeCachePath.set(nodeCacheDir)
             }
             maxParallelUsages.set(1)
         }

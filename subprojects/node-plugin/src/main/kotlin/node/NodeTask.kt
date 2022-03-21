@@ -6,7 +6,6 @@ import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
-import org.gradle.initialization.GradleUserHomeDirProvider
 import org.gradle.process.ExecOperations
 import java.io.File
 import java.nio.file.Path
@@ -22,21 +21,9 @@ abstract class NodeTask: DefaultTask() {
     @get:Inject
     abstract val execOperations: ExecOperations
 
-    @get:Inject
-    abstract val gradleUserHomeDirProvider: GradleUserHomeDirProvider
-
     @TaskAction
     fun exec() {
-        val nodeCacheDir = gradleUserHomeDirProvider.gradleUserHomeDirectory.resolve("node").also {
-            if (!it.exists()) {
-                it.mkdirs()
-                logger.debug("Created node directory: {}", it)
-            } else {
-                logger.debug("node directory already exists: {}", it)
-            }
-        }
-
-        val path = nodeProvisioningService.get().provision(nodeCacheDir.toPath())
+        val path = nodeProvisioningService.get().provision("v16.14.0")
         val unpacked = unpack(path)
 
         logger.info("Unpacked node to ${unpacked.absolutePath}")
