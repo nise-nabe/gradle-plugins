@@ -17,7 +17,7 @@ import org.gradle.kotlin.dsl.registerIfAbsent
 class NodePlugin: Plugin<Project> {
     override fun apply(project: Project): Unit = project.run {
         val nodeExtension = extensions.create<NodeExtension>("node").also {
-            it.version.convention("v16.14.0")
+            it.version.convention("v16.14.2")
         }
 
         val binaryType = NodeBinaryTypeSelector.select()
