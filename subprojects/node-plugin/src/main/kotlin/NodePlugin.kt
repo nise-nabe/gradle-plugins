@@ -24,7 +24,6 @@ class NodePlugin: Plugin<Project> {
                 nodeBinaryType.set(binaryType)
                 nodeCachePath.set(nodeCacheDir)
             }
-            maxParallelUsages.set(1)
         }
         val yarnServiceProvider = gradle.sharedServices.registerIfAbsent("yarn", YarnService::class) {
             maxParallelUsages.set(1)
