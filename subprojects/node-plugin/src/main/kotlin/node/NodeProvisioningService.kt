@@ -44,6 +44,7 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
             val client = HttpClient.newHttpClient()
             client.send(request, HttpResponse.BodyHandlers.ofFile(dist.toPath()))
             fileOperations.unpack(dist.toPath(), nodeCacheDir.toPath())
+            dist.delete()
         }
 
         return NodeBinary(
