@@ -63,7 +63,7 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
         return if (parameters.nodeBinaryType.get().osName == "win") {
             path.resolve("node.exe")
         } else {
-            path.resolve("node")
+            path.resolve("bin").resolve("node")
         }
     }
 }
