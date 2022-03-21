@@ -3,8 +3,8 @@ package com.nisecoder.gradle.plugin
 import com.nisecoder.gradle.plugin.node.NodeBinaryTypeSelector
 import com.nisecoder.gradle.plugin.node.NodeExtension
 import com.nisecoder.gradle.plugin.node.NodeProvisioningService
-import com.nisecoder.gradle.plugin.node.task.NodeTask
 import com.nisecoder.gradle.plugin.node.YarnService
+import com.nisecoder.gradle.plugin.node.task.NodeVersionTask
 import com.nisecoder.gradle.plugin.node.task.YarnTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -36,7 +36,7 @@ class NodePlugin: Plugin<Project> {
         }
 
         tasks {
-            register<NodeTask>("node") {
+            register<NodeVersionTask>("nodeVersion") {
                 nodeProvisioningService.set(nodeProvisioningServiceProvider)
                 nodeVersion.set(nodeExtension.version)
             }

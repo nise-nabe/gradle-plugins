@@ -34,12 +34,11 @@ internal class NodePluginTest {
         val buildResult = GradleRunner.create()
             .withProjectDir(testProjectDir)
             .withPluginClasspath()
-            .withArguments("node", "--stacktrace")
+            .withArguments("nodeVersion", "--stacktrace")
             .build()
 
-        val taskResult = buildResult.task(":node")
+        val taskResult = buildResult.task(":nodeVersion")
         assertNotNull(taskResult)
         assertThat(taskResult.outcome).isIn(TaskOutcome.SUCCESS, TaskOutcome.UP_TO_DATE)
-        println(buildResult.output)
     }
 }

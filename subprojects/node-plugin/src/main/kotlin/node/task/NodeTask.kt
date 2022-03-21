@@ -1,14 +1,19 @@
 package com.nisecoder.gradle.plugin.node.task
 
+import com.nisecoder.gradle.plugin.node.NodeBinary
 import com.nisecoder.gradle.plugin.node.NodeProvisioningService
 import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.TaskAction
+import java.nio.file.Path
 import javax.inject.Inject
 
 abstract class NodeTask: Exec() {
+    init {
+        group = "node"
+    }
+
     @get:Internal
     abstract val nodeProvisioningService: Property<NodeProvisioningService>
 
@@ -18,12 +23,11 @@ abstract class NodeTask: Exec() {
     @get:Internal
     abstract val nodeVersion: Property<String>
 
-    @TaskAction
-    override fun exec() {
-        val node = nodeProvisioningService.get().provision(fileOperations, nodeVersion.get())
-
-        commandLine(node.node, "-v")
-
-        super.exec()
+    @get:Internal
+    private val nodeBinary: NodeBinary by lazy {
+        nodeProvisioningService.get().provision(fileOperations, nodeVersion.get())
     }
+
+    @get:Internal
+    val node: Path by lazy { nodeBinary.node }
 }
