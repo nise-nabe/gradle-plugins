@@ -45,7 +45,8 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
     }
 
     private fun FileOperations.unpack(path: Path): Path {
-        val fileTree: FileTree = if (parameters.nodeBinaryType.get().ext == "zip") {
+        val ext = parameters.nodeBinaryType.get().ext
+        val fileTree: FileTree = if (ext == "zip") {
             zipTree(path)
         } else {
             tarTree(path)
@@ -55,7 +56,7 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
             from(fileTree)
             into(installationDir)
         }
-        val unpackedDirName = path.toFile().name.let { it.substring(0, it.lastIndexOf('.')) }
+        val unpackedDirName = path.toFile().name.replace(".$ext", "")
         return installationDir.resolve(unpackedDirName).toPath()
     }
 
