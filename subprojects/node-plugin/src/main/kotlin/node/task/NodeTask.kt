@@ -23,7 +23,6 @@ abstract class NodeTask: Exec() {
     @get:Internal
     abstract val nodeVersion: Property<String>
 
-    @get:Internal
     private val nodeBinary: NodeBinary by lazy {
         nodeProvisioningService.get().provision(fileOperations, nodeVersion.get())
     }
