@@ -32,6 +32,7 @@ class NodePlugin: Plugin<Project> {
         tasks {
             register<NodeTask>("node") {
                 nodeProvisioningService.set(nodeProvisioningServiceProvider)
+                nodeVersion.set("v16.14.0")
             }
 
             register<YarnTask>("yarn") {

@@ -18,9 +18,12 @@ abstract class NodeTask: DefaultTask() {
     @get:Inject
     abstract val execOperations: ExecOperations
 
+    @get:Internal
+    abstract val nodeVersion: Property<String>
+
     @TaskAction
     fun exec() {
-        val node = nodeProvisioningService.get().provision(fileOperations, "v16.14.0")
+        val node = nodeProvisioningService.get().provision(fileOperations, nodeVersion.get())
 
         execOperations.exec {
             commandLine(node.node, "-v")
