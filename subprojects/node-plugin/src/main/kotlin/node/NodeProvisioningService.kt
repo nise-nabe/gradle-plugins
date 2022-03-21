@@ -43,6 +43,7 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
             val request = HttpRequest.newBuilder(uri).GET().build()
             val client = HttpClient.newHttpClient()
             client.send(request, HttpResponse.BodyHandlers.ofFile(dist.toPath()))
+            // TODO verify using checksum
             fileOperations.unpack(dist.toPath(), nodeCacheDir.toPath())
             dist.delete()
         }
