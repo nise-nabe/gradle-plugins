@@ -46,7 +46,12 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
             fileOperations.unpack(dist.toPath(), nodeCacheDir.toPath())
         }
 
-        return NodeBinary(resolveExecutable(installationDir), installationDir)
+        return NodeBinary(
+            resolveExecutable(installationDir),
+            resolveNpm(installationDir),
+            resolveNpx(installationDir),
+            installationDir
+        )
     }
 
     private fun FileOperations.unpack(archiveFile: Path, installationDir: Path): Path {
@@ -68,6 +73,22 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
             path.resolve("node.exe")
         } else {
             path.resolve("bin").resolve("node")
+        }
+    }
+
+    private fun resolveNpm(path: Path): Path {
+        return if (parameters.nodeBinaryType.get().osName == "win") {
+            path.resolve("npm.cmd")
+        } else {
+            path.resolve("bin").resolve("npm")
+        }
+    }
+
+    private fun resolveNpx(path: Path): Path {
+        return if (parameters.nodeBinaryType.get().osName == "win") {
+            path.resolve("npx.cmd")
+        } else {
+            path.resolve("bin").resolve("npx")
         }
     }
 }

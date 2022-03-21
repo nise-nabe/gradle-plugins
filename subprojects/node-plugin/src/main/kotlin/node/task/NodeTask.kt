@@ -30,4 +30,8 @@ abstract class NodeTask: Exec() {
 
     @get:Internal
     val node: Path by lazy { nodeBinary.node }
+    @get:Internal
+    val npm: Path by lazy { nodeBinary.npm }
+    @get:Internal
+    val npx: Path by lazy { nodeBinary.npx }
 }
