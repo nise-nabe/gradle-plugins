@@ -1,5 +1,6 @@
-package com.nisecoder.gradle.plugin.node
+package com.nisecoder.gradle.plugin.node.task
 
+import com.nisecoder.gradle.plugin.node.YarnService
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Internal

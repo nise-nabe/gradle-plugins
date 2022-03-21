@@ -3,9 +3,9 @@ package com.nisecoder.gradle.plugin
 import com.nisecoder.gradle.plugin.node.NodeBinaryTypeSelector
 import com.nisecoder.gradle.plugin.node.NodeExtension
 import com.nisecoder.gradle.plugin.node.NodeProvisioningService
-import com.nisecoder.gradle.plugin.node.NodeTask
+import com.nisecoder.gradle.plugin.node.task.NodeTask
 import com.nisecoder.gradle.plugin.node.YarnService
-import com.nisecoder.gradle.plugin.node.YarnTask
+import com.nisecoder.gradle.plugin.node.task.YarnTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create

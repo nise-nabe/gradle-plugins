@@ -1,5 +1,6 @@
-package com.nisecoder.gradle.plugin.node
+package com.nisecoder.gradle.plugin.node.task
 
+import com.nisecoder.gradle.plugin.node.NodeProvisioningService
 import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Exec
