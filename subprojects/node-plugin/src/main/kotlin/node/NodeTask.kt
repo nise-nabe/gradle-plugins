@@ -1,14 +1,11 @@
 package com.nisecoder.gradle.plugin.node
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.FileTree
 import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecOperations
-import java.io.File
-import java.nio.file.Path
 import javax.inject.Inject
 
 abstract class NodeTask: DefaultTask() {
@@ -23,24 +20,10 @@ abstract class NodeTask: DefaultTask() {
 
     @TaskAction
     fun exec() {
-        val path = nodeProvisioningService.get().provision("v16.14.0")
-        val unpacked = unpack(path)
-
-        logger.info("Unpacked node to ${unpacked.absolutePath}")
+        val node = nodeProvisioningService.get().provision(fileOperations, "v16.14.0")
 
         execOperations.exec {
-            commandLine(unpacked.resolve("node.exe"), "-v")
+            commandLine(node.node, "-v")
         }
-    }
-
-    private fun unpack(path: Path): File {
-        val fileTree: FileTree = fileOperations.zipTree(path)
-        val installationDir = path.parent.toFile()
-        fileOperations.copy {
-            from(fileTree)
-            into(installationDir)
-        }
-        val unpackedDirName = path.toFile().name.let { it.substring(0, it.lastIndexOf('.')) }
-        return installationDir.resolve(unpackedDirName)
     }
 }

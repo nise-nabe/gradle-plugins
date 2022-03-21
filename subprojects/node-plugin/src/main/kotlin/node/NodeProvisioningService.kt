@@ -1,6 +1,8 @@
 package com.nisecoder.gradle.plugin.node
 
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.FileTree
+import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.provider.Property
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
@@ -16,7 +18,7 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
         val nodeCachePath: DirectoryProperty
     }
 
-    fun provision(nodeVersion: String): Path {
+    fun provision(fileOperations: FileOperations, nodeVersion: String): NodeBinary {
         val nodeCacheDir = parameters.nodeCachePath.get().asFile.also {
             if (!it.exists()) {
                 it.mkdirs()
@@ -36,7 +38,28 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
             val client = HttpClient.newHttpClient()
             client.send(request, HttpResponse.BodyHandlers.ofFile(dist.toPath()))
         }
-        return dist.toPath()
+
+        val unpacked = fileOperations.unpack(dist.toPath())
+
+        return NodeBinary(resolveExecutable(unpacked), unpacked)
     }
 
+    private fun FileOperations.unpack(path: Path): Path {
+        val fileTree: FileTree = zipTree(path)
+        val installationDir = path.parent.toFile()
+        copy {
+            from(fileTree)
+            into(installationDir)
+        }
+        val unpackedDirName = path.toFile().name.let { it.substring(0, it.lastIndexOf('.')) }
+        return installationDir.resolve(unpackedDirName).toPath()
+    }
+
+    private fun resolveExecutable(path: Path): Path {
+        return if (parameters.nodeBinaryType.get().osName == "win") {
+            path.resolve("node.exe")
+        } else {
+            path.resolve("node")
+        }
+    }
 }
