@@ -48,7 +48,7 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
         }
 
         return NodeBinary(
-            resolveExecutable(installationDir),
+            resolveNode(installationDir),
             resolveNpm(installationDir),
             resolveNpx(installationDir),
             installationDir
@@ -69,7 +69,7 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
         return installationDir
     }
 
-    private fun resolveExecutable(path: Path): Path {
+    private fun resolveNode(path: Path): Path {
         return if (parameters.nodeBinaryType.get().osName == "win") {
             path.resolve("node.exe")
         } else {
