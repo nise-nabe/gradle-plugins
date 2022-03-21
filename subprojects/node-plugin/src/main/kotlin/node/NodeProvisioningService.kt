@@ -24,6 +24,11 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
                 it.mkdirs()
             }
         }
+        val installationDirName = parameters.nodeBinaryType.get().let {
+            val osName = it.osName
+            val arch = it.arch
+            "node-$nodeVersion-$osName-$arch"
+        }
         val fileName = parameters.nodeBinaryType.get().let {
             val osName = it.osName
             val arch = it.arch
@@ -31,33 +36,31 @@ abstract class NodeProvisioningService: BuildService<NodeProvisioningService.Par
             "node-$nodeVersion-$osName-$arch.$ext"
         }
 
-        val dist = nodeCacheDir.resolve(fileName)
-        if (!dist.exists()) {
+        val installationDir = nodeCacheDir.resolve(installationDirName).toPath()
+        if (!installationDir.toFile().exists()) {
+            val dist = nodeCacheDir.resolve(fileName)
             val uri = URI.create("https://nodejs.org/dist/$nodeVersion/$fileName")
             val request = HttpRequest.newBuilder(uri).GET().build()
             val client = HttpClient.newHttpClient()
             client.send(request, HttpResponse.BodyHandlers.ofFile(dist.toPath()))
+            fileOperations.unpack(dist.toPath(), nodeCacheDir.toPath())
         }
 
-        val unpacked = fileOperations.unpack(dist.toPath())
-
-        return NodeBinary(resolveExecutable(unpacked), unpacked)
+        return NodeBinary(resolveExecutable(installationDir), installationDir)
     }
 
-    private fun FileOperations.unpack(path: Path): Path {
+    private fun FileOperations.unpack(archiveFile: Path, installationDir: Path): Path {
         val ext = parameters.nodeBinaryType.get().ext
         val fileTree: FileTree = if (ext == "zip") {
-            zipTree(path)
+            zipTree(archiveFile)
         } else {
-            tarTree(path)
+            tarTree(archiveFile)
         }
-        val installationDir = path.parent.toFile()
         copy {
             from(fileTree)
             into(installationDir)
         }
-        val unpackedDirName = path.toFile().name.replace(".$ext", "")
-        return installationDir.resolve(unpackedDirName).toPath()
+        return installationDir
     }
 
     private fun resolveExecutable(path: Path): Path {
