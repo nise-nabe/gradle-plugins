@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/subprojects/github-actions" />
             <option value="$PROJECT_DIR$/subprojects/github-release-upload" />
             <option value="$PROJECT_DIR$/subprojects/lib-gradle-test" />
+            <option value="$PROJECT_DIR$/subprojects/node-plugin" />
             <option value="$PROJECT_DIR$/subprojects/publish-intellij-plugin" />
           </set>
         </option>
