@@ -16,7 +16,7 @@ pluginBundle {
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testImplementation(gradleTestKit())
     testImplementation(kotlin("test-junit5"))
     testImplementation(project(":lib-gradle-test"))
