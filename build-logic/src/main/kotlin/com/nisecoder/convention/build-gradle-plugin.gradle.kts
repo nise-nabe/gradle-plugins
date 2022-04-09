@@ -1,6 +1,5 @@
 package com.nisecoder.convention
 
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin
 import org.gradle.kotlin.dsl.project
 
