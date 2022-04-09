@@ -15,16 +15,20 @@ pluginBundle {
     vcsUrl = "https://github.com/nise-nabe/gradle-plugins"
 }
 
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation(gradleTestKit())
-    testImplementation(kotlin("test-junit5"))
-    testImplementation(project(":lib-gradle-test"))
-    testImplementation("org.assertj:assertj-core:3.21.0")
-}
+testing {
+    @Suppress("UNUSED_VARIABLE")
+    suites {
+        val test by getting(JvmTestSuite::class) {
+            useJUnitJupiter("5.8.2")
 
-tasks.test {
-    useJUnitPlatform()
+            dependencies {
+                implementation(project.dependencies.gradleTestKit())
+                implementation(project.dependencies.kotlin("test-junit5"))
+                implementation(project.dependencies.project(":lib-gradle-test"))
+                implementation("org.assertj:assertj-core:3.21.0")
+            }
+        }
+    }
 }
 
 publishing {
