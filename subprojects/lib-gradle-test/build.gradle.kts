@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:22.0.0")
+    implementation("org.jetbrains:annotations:23.0.0")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
