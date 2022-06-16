@@ -8,7 +8,7 @@ pluginManagement {
         mavenCentral()
     }
     plugins {
-        id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.4"
+        id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.5"
     }
 }
 
