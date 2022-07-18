@@ -6,4 +6,6 @@ enum class CiService {
     JENKINS,
     GITHUB_ACTIONS,
     TEAMCITY,
+    BUDDY,
+    ;
 }
