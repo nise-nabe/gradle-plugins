@@ -16,7 +16,5 @@ gradlePlugin {
 }
 
 pluginBundle {
-    pluginTags = mapOf(
-        "github-actions" to listOf("github", "github actions", "ci")
-    )
+    tags = listOf("github", "github actions", "ci")
 }

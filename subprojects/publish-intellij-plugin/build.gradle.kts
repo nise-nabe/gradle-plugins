@@ -21,7 +21,5 @@ gradlePlugin {
 }
 
 pluginBundle {
-    pluginTags = mapOf(
-        "intellij-plugin-portal" to listOf("intellij")
-    )
+    tags = listOf("intellij")
 }

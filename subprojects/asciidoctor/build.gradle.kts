@@ -20,7 +20,5 @@ gradlePlugin {
 }
 
 pluginBundle {
-    pluginTags = mapOf(
-        "github-pages.asciidoctor" to listOf("GitHub Pages", "AsciiDoc")
-    )
+    tags = listOf("GitHub Pages", "AsciiDoc")
 }

@@ -20,7 +20,5 @@ gradlePlugin {
 }
 
 pluginBundle {
-    pluginTags = mapOf(
-        "github-release-upload" to listOf("github", "github release")
-    )
+    tags = listOf("github", "github release")
 }

@@ -16,7 +16,5 @@ gradlePlugin {
 }
 
 pluginBundle {
-    pluginTags = mapOf(
-        "ci-detect" to listOf("ci")
-    )
+    tags = listOf("ci")
 }
