@@ -9,6 +9,7 @@ val ciService: CiService?
         isDrone -> CiService.DRONE
         isGithubActions -> CiService.GITHUB_ACTIONS
         isTeamCity -> CiService.TEAMCITY
+        isBuddy -> CiService.BUDDY
         else -> null
     }
 
@@ -29,6 +30,10 @@ val isGithubActions: Boolean
 
 val isTeamCity: Boolean
     get() = (System.getenv("TEAMCITY_PROJECT_NAME") ?: "") != ""
+
+/** https://buddy.works/docs/pipelines/environment-variables */
+val isBuddy: Boolean
+    get() = (System.getenv("BUDDY") ?: "") == "true"
 
 val isCI: Boolean
     get() = (System.getenv("CI") ?: "")  == "true"
