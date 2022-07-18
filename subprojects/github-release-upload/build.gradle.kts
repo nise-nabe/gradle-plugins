@@ -11,7 +11,7 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("github-release-upload") {
+        create("github-release-upload") {
             id = "com.nisecoder.github-release-upload"
             implementationClass = "com.nisecoder.gradle.plugin.GitHubReleaseUploadPlugin"
             description = "convention plugin to upload to GitHub Release"
@@ -20,9 +20,7 @@ gradlePlugin {
 }
 
 pluginBundle {
-    (plugins) {
-        "github-release-upload" {
-            tags = listOf("github", "github release")
-        }
-    }
+    pluginTags = mapOf(
+        "github-release-upload" to listOf("github", "github release")
+    )
 }

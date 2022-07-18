@@ -11,7 +11,7 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("github-pages.asciidoctor") {
+        create("github-pages.asciidoctor") {
             id = "com.nisecoder.github-pages.asciidoctor"
             implementationClass = "com.nisecoder.gradle.plugin.AsciiDoctorPlugin"
             description = "convention plugin for publish asciidoc document to GitHub Pages"
@@ -20,9 +20,7 @@ gradlePlugin {
 }
 
 pluginBundle {
-    (plugins) {
-        "github-pages.asciidoctor" {
-            tags = listOf("GitHub Pages", "AsciiDoc")
-        }
-    }
+    pluginTags = mapOf(
+        "github-pages.asciidoctor" to listOf("GitHub Pages", "AsciiDoc")
+    )
 }

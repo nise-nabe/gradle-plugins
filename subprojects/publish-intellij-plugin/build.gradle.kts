@@ -12,7 +12,7 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("intellij-plugin-portal") {
+        create("intellij-plugin-portal") {
             id = "com.nisecoder.intellij-plugin.portal"
             implementationClass = "com.nisecoder.gradle.plugin.IntellijPluginPortalPlugin"
             description = "generate updatePlugins.xml plugin"
@@ -21,9 +21,7 @@ gradlePlugin {
 }
 
 pluginBundle {
-    (plugins) {
-        "intellij-plugin-portal" {
-            tags = listOf("intellij")
-        }
-    }
+    pluginTags = mapOf(
+        "intellij-plugin-portal" to listOf("intellij")
+    )
 }

@@ -7,7 +7,7 @@ plugins {
 
 gradlePlugin {
     plugins {
-        register("github-actions") {
+        create("github-actions") {
             id = "com.nisecoder.github-actions"
             implementationClass = "com.nisecoder.gradle.plugin.GitHubActionsPlugin"
             description = "convention plugin to run on GitHub Actions"
@@ -16,9 +16,7 @@ gradlePlugin {
 }
 
 pluginBundle {
-    (plugins) {
-        "github-actions" {
-            tags = listOf("github", "github actions", "ci")
-        }
-    }
+    pluginTags = mapOf(
+        "github-actions" to listOf("github", "github actions", "ci")
+    )
 }
