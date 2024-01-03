@@ -6,7 +6,7 @@ plugins {
     id("com.gradle.plugin-publish")
 }
 
-pluginBundle {
+gradlePlugin {
     website = "https://github.com/nise-nabe/gradle-plugins"
     vcsUrl = "https://github.com/nise-nabe/gradle-plugins"
 }
