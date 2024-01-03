@@ -7,6 +7,8 @@ dependencies {
     implementation("com.gradle.publish:plugin-publish-plugin:1.0.0")
 }
 
-kotlinDslPluginOptions {
-    jvmTarget.set(JavaVersion.VERSION_11.toString())
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }
