@@ -16,10 +16,7 @@ gradlePlugin {
             id = "com.nisecoder.intellij-plugin.portal"
             implementationClass = "com.nisecoder.gradle.plugin.IntellijPluginPortalPlugin"
             description = "generate updatePlugins.xml plugin"
+            tags = listOf("intellij")
         }
     }
-}
-
-pluginBundle {
-    tags = listOf("intellij")
 }

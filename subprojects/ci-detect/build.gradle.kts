@@ -11,10 +11,7 @@ gradlePlugin {
             id = "com.nisecoder.ci-detect"
             implementationClass = "com.nisecoder.gradle.plugin.CiDetectPlugin"
             description = "detect CI services for each CI build logic"
+            tags = listOf("ci")
         }
     }
-}
-
-pluginBundle {
-    tags = listOf("ci")
 }

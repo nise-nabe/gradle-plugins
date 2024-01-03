@@ -15,10 +15,7 @@ gradlePlugin {
             id = "com.nisecoder.github-release-upload"
             implementationClass = "com.nisecoder.gradle.plugin.GitHubReleaseUploadPlugin"
             description = "convention plugin to upload to GitHub Release"
+            tags = listOf("github", "github release")
         }
     }
-}
-
-pluginBundle {
-    tags = listOf("github", "github release")
 }

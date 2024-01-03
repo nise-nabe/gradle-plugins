@@ -15,10 +15,7 @@ gradlePlugin {
             id = "com.nisecoder.github-pages.asciidoctor"
             implementationClass = "com.nisecoder.gradle.plugin.AsciiDoctorPlugin"
             description = "convention plugin for publish asciidoc document to GitHub Pages"
+            tags = listOf("GitHub Pages", "AsciiDoc")
         }
     }
-}
-
-pluginBundle {
-    tags = listOf("GitHub Pages", "AsciiDoc")
 }

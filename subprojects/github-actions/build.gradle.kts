@@ -11,10 +11,7 @@ gradlePlugin {
             id = "com.nisecoder.github-actions"
             implementationClass = "com.nisecoder.gradle.plugin.GitHubActionsPlugin"
             description = "convention plugin to run on GitHub Actions"
+            tags = listOf("github", "github actions", "ci")
         }
     }
-}
-
-pluginBundle {
-    tags = listOf("github", "github actions", "ci")
 }

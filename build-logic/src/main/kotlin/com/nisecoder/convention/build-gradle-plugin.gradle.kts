@@ -1,15 +1,12 @@
 package com.nisecoder.convention
 
-import org.gradle.kotlin.dsl.kotlin
-import org.gradle.kotlin.dsl.project
-
 plugins {
     java
     `maven-publish`
     id("com.gradle.plugin-publish")
 }
 
-pluginBundle {
+gradlePlugin {
     website = "https://github.com/nise-nabe/gradle-plugins"
     vcsUrl = "https://github.com/nise-nabe/gradle-plugins"
 }
@@ -21,9 +18,9 @@ testing {
             useJUnitJupiter("5.8.2")
 
             dependencies {
-                implementation(project.dependencies.gradleTestKit())
-                implementation(project.dependencies.kotlin("test-junit5"))
-                implementation(project.dependencies.project(":lib-gradle-test"))
+                implementation(gradleTestKit())
+                implementation("org.jetbrains.kotlin:kotlin-test-junit5")
+                implementation(project(":lib-gradle-test"))
                 implementation("org.assertj:assertj-core:3.21.0")
             }
         }
