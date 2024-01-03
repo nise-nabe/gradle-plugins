@@ -14,9 +14,9 @@ class AsciiDoctorPlugin: Plugin<Project> {
         tasks.getByName<AsciidoctorTask>("asciidoctor") {
             // collect into root buildDirectory for publishing to GitHub Pages
             val outputDir = if (project == rootProject) {
-                rootProject.buildDir.resolve("docs/asciidoc")
+                rootProject.layout.buildDirectory.dir("docs/asciidoc")
             } else {
-                rootProject.buildDir.resolve("docs/asciidoc/${project.name}")
+                rootProject.layout.buildDirectory.dir("docs/asciidoc/${project.name}")
             }
             setOutputDir(outputDir)
         }
