@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm")
     id("com.nisecoder.convention.idea")
 }
 
@@ -7,10 +7,10 @@ dependencies {
     implementation("org.jetbrains:annotations:23.0.0")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        apiVersion = "1.5"
-        languageVersion = "1.5"
+        apiVersion = "1.7"
+        languageVersion = "1.7"
 
         jvmTarget = JavaVersion.VERSION_11.toString()
 
