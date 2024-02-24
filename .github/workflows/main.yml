@@ -19,6 +19,7 @@ jobs:
         java-version: [ 11 ]
         gradle-version:
           - wrapper
+          - release-candidate
 
     steps:
       - uses: actions/checkout@v4
