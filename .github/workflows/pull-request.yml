@@ -12,7 +12,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java-version: [ 11 ]
+        # use gradle runtime's java language version to build each gradle-plugins version
+        java-version:
+          - 11
+          - 17
+          - 21
+          - 22
         gradle-version:
           - wrapper
           - release-candidate
