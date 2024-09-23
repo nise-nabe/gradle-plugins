@@ -9,7 +9,7 @@ pluginManagement {
     }
     plugins {
         kotlin("jvm") version embeddedKotlinVersion
-        id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.8"
+        id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.9"
     }
 }
 
