@@ -14,7 +14,6 @@ jobs:
       matrix:
         # use gradle runtime's java language version to build each gradle-plugins version
         java-version:
-          - 11
           - 17
           - 21
           # - 22 # not supported on setup-java
