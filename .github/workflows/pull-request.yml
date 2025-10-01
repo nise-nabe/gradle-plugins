@@ -24,7 +24,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
       - run: ./gradlew build
       - uses: mikepenz/action-junit-report@v5
         if: success() || failure() # always run even if the previous step fails
