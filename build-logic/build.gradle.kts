@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     implementation("gradle.plugin.org.jetbrains.gradle.plugin.idea-ext:gradle-idea-ext:${libs.versions.idea.ext.get()}")
-    implementation("com.gradle.publish:plugin-publish-plugin:2.0.0")
+    implementation("com.gradle.publish:plugin-publish-plugin:2.1.0")
 }
