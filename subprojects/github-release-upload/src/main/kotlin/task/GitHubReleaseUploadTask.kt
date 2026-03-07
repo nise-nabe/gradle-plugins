@@ -11,13 +11,17 @@ import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.DisableCachingByDefault
 import java.net.URI
 import java.net.URL
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
+@DisableCachingByDefault(because = "temporary")
 abstract class GitHubReleaseUploadTask: DefaultTask() {
     @get:Input
     abstract val githubToken: Property<String>
@@ -26,6 +30,7 @@ abstract class GitHubReleaseUploadTask: DefaultTask() {
     @get:Input
     abstract val releaseName: Property<String>
     @get:InputFile
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
     abstract val releaseFile: RegularFileProperty
 
     companion object {

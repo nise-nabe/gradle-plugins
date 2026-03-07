@@ -9,11 +9,16 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.DisableCachingByDefault
 import java.net.URI
 
+@DisableCachingByDefault(because = "temporary")
 abstract class UpdatePluginsXmlTask: DefaultTask() {
     @get:InputFile
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
     abstract val pluginXml: RegularFileProperty
     @get:Input
     abstract val pluginUrl: Property<URI>
