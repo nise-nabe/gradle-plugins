@@ -8,17 +8,16 @@ import java.net.URL
 @JacksonXmlRootElement(localName = "plugins")
 data class PluginsXml(
     @get:JacksonXmlElementWrapper(useWrapping = false)
-    val plugin: MutableList<Plugin> = mutableListOf()
+    val plugin: MutableList<Plugin> = mutableListOf(),
 ) {
     data class Plugin(
-        @JacksonXmlProperty(isAttribute = true)
+        @get:JacksonXmlProperty(isAttribute = true)
         val id: String,
-        @JacksonXmlProperty(isAttribute = true)
+        @get:JacksonXmlProperty(isAttribute = true)
         var url: URL,
-        @JacksonXmlProperty(isAttribute = true)
+        @get:JacksonXmlProperty(isAttribute = true)
         var version: String,
-
         val name: String? = null,
-        val ideaVersion: IdeaVersion? = null
+        val ideaVersion: IdeaVersion? = null,
     )
 }
