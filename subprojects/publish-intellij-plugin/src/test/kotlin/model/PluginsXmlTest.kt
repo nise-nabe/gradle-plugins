@@ -6,6 +6,7 @@ import com.nisecoder.gradle.plugin.intellij.plugin.portal.model.PluginsXml
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.net.URI
 import java.net.URL
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -21,7 +22,8 @@ class PluginsXmlTest {
     @Test
     fun deserialize() {
         // language=xml
-        val pluginsXml = """
+        val pluginsXml =
+            """
             <?xml version="1.0" encoding="UTF-8"?>
             <!--
               The <plugins> element contains the description of the plugins available at this repository. Required.
@@ -45,13 +47,12 @@ class PluginsXmlTest {
               <plugin id="id.of.no.idea.version.plugin" url="https://www.otherserver.com/other_repository/differentplugin.jar" version="major.minor">
               </plugin>
             </plugins>
-        """.trimIndent()
-
+            """.trimIndent()
 
         val result = ideaPluginXmlParser.readPluginsXml(pluginsXml)
 
         assertEquals("fully.qualified.id.of.this.plugin", result.plugin[0].id)
-        assertEquals(URL("https://www.mycompany.com/my_repository/mypluginname.jar"), result.plugin[0].url)
+        assertEquals(URI("https://www.mycompany.com/my_repository/mypluginname.jar").toURL(), result.plugin[0].url)
         assertEquals("major.minor.update", result.plugin[0].version)
         assertEquals("181.3", result.plugin[0].ideaVersion!!.sinceBuild)
         assertEquals("191.*", result.plugin[0].ideaVersion!!.untilBuild)
@@ -62,37 +63,40 @@ class PluginsXmlTest {
 
     @Test
     fun serialize() {
-        val model = PluginsXml(
-            plugin = mutableListOf(
-                PluginsXml.Plugin(
-                    id = "fully.qualified.id.of.this.plugin",
-                    url = URL("https://www.mycompany.com/my_repository/mypluginname.jar"),
-                    version = "major.minor.update",
-                    ideaVersion = IdeaVersion(
-                        sinceBuild = "181.3",
-                        untilBuild = "191.*"
-                    )
-                ),
-                PluginsXml.Plugin(
-                    id = "id.of.different.plugin",
-                    url = URL("https://www.otherserver.com/other_repository/differentplugin.jar"),
-                    version = "major.minor",
-                    ideaVersion = IdeaVersion(
-                        sinceBuild = "181.3",
-                        untilBuild = "191.*"
-                    )
-                ),
-                PluginsXml.Plugin(
-                    id = "id.of.no.idea.version.plugin",
-                    url = URL("https://www.otherserver.com/other_repository/differentplugin.jar"),
-                    version = "major.minor",
-                ),
+        val model =
+            PluginsXml(
+                plugin =
+                    mutableListOf(
+                        PluginsXml.Plugin(
+                            id = "fully.qualified.id.of.this.plugin",
+                            url = URI("https://www.mycompany.com/my_repository/mypluginname.jar").toURL(),
+                            version = "major.minor.update",
+                            ideaVersion =
+                                IdeaVersion(
+                                    sinceBuild = "181.3",
+                                    untilBuild = "191.*",
+                                ),
+                        ),
+                        PluginsXml.Plugin(
+                            id = "id.of.different.plugin",
+                            url = URI("https://www.otherserver.com/other_repository/differentplugin.jar").toURL(),
+                            version = "major.minor",
+                            ideaVersion =
+                                IdeaVersion(
+                                    sinceBuild = "181.3",
+                                    untilBuild = "191.*",
+                                ),
+                        ),
+                        PluginsXml.Plugin(
+                            id = "id.of.no.idea.version.plugin",
+                            url = URI("https://www.otherserver.com/other_repository/differentplugin.jar").toURL(),
+                            version = "major.minor",
+                        ),
+                    ),
             )
-        )
         val str = ideaPluginXmlParser.convertPluginsXml(model)
 
         assertThat(str)
             .contains("<?xml version='1.0' encoding='UTF-8'?>")
-
     }
 }
