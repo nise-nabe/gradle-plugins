@@ -7,7 +7,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.net.URI
-import java.net.URL
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
