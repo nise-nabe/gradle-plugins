@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:24.1.0")
+    implementation(libs.annotations)
 }
 
 java {

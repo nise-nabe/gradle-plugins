@@ -1,6 +1,20 @@
 [versions]
 idea-ext = "1.4.1"
+jackson = "2.16.1"
+plugin-publish = "2.1.0"
+asciidoctor = "3.3.2"
+annotations = "24.1.0"
+assertj = "3.25.1"
+junit-jupiter = "6.0.3"
 
 [libraries]
 
 idea-ext = { module = "org.jetbrains.gradle.plugin.idea-ext:org.jetbrains.gradle.plugin.idea-ext.gradle.plugin", version.ref = "idea-ext" }
+
+jackson-dataformat-xml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-xml", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+gradlePublishPlugin = { module = "com.gradle.publish:plugin-publish-plugin", version.ref = "plugin-publish" }
+asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
+annotations = { module = "org.jetbrains:annotations", version.ref = "annotations" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }

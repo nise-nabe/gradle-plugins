@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.asciidoctor:asciidoctor-gradle-jvm:3.3.2")
+    implementation(libs.asciidoctor)
 }
 
 gradlePlugin {

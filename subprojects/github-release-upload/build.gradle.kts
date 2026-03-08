@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.1")
+    implementation(libs.jackson.module.kotlin)
 }
 
 gradlePlugin {

@@ -15,13 +15,14 @@ testing {
     @Suppress("UNUSED_VARIABLE")
     suites {
         val test by getting(JvmTestSuite::class) {
-            useJUnitJupiter("6.0.3")
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+            useJUnitJupiter(libs.findVersion("junit-jupiter").get().requiredVersion)
 
             dependencies {
                 implementation(gradleTestKit())
-                implementation("org.jetbrains.kotlin:kotlin-test-junit5")
+                implementation(libs.findLibrary("kotlin-test-junit5").get())
                 implementation(project(":lib-gradle-test"))
-                implementation("org.assertj:assertj-core:3.25.1")
+                implementation(libs.findLibrary("assertj-core").get())
             }
         }
     }
