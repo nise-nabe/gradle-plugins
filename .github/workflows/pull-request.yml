@@ -16,7 +16,7 @@ jobs:
         java-version:
           - 17
           - 21
-          # - 22 # not supported on setup-java
+          - 25
 
     steps:
       - uses: actions/checkout@v6
