@@ -7,9 +7,6 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
-    plugins {
-        kotlin("jvm") version embeddedKotlinVersion
-    }
 }
 
 plugins {

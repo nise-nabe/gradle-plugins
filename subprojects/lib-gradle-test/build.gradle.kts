@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
-    kotlin("jvm")
+    id("com.nisecoder.convention.kotlin-jvm")
     id("com.nisecoder.convention.idea")
 }
 
