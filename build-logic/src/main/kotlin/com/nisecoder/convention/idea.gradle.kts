@@ -1,7 +1,7 @@
 package com.nisecoder.convention
 
-import org.jetbrains.gradle.ext.settings
 import org.jetbrains.gradle.ext.packagePrefix
+import org.jetbrains.gradle.ext.settings
 
 plugins {
     id("org.jetbrains.gradle.plugin.idea-ext")

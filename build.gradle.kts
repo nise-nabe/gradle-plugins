@@ -7,9 +7,10 @@ subprojects {
 
     // inject in GitHub Action Publish Workflow
     val publishVersion: String? by project
-    version = if (publishVersion?.isNotEmpty() == true) {
-        publishVersion!!.replaceFirst("refs/tags/v", "")
-    } else {
-        "1.0-SNAPSHOT"
-    }
+    version =
+        if (publishVersion?.isNotEmpty() == true) {
+            publishVersion!!.replaceFirst("refs/tags/v", "")
+        } else {
+            "1.0-SNAPSHOT"
+        }
 }

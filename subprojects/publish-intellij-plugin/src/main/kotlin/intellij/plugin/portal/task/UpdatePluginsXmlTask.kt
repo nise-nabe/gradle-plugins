@@ -16,10 +16,11 @@ import org.gradle.work.DisableCachingByDefault
 import java.net.URI
 
 @DisableCachingByDefault(because = "temporary")
-abstract class UpdatePluginsXmlTask: DefaultTask() {
+abstract class UpdatePluginsXmlTask : DefaultTask() {
     @get:InputFile
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
     abstract val pluginXml: RegularFileProperty
+
     @get:Input
     abstract val pluginUrl: Property<URI>
 
@@ -38,12 +39,14 @@ abstract class UpdatePluginsXmlTask: DefaultTask() {
         plugins.plugin.find { it.id == plugin.id }?.let {
             pluginUrl.orNull?.run { it.url = this.toURL() }
             it.version = plugin.version
-        } ?: plugins.plugin.add(PluginsXml.Plugin(
-            id = plugin.id,
-            name = project.name,
-            url = pluginUrl.get().toURL(),
-            version = plugin.version,
-        ))
+        } ?: plugins.plugin.add(
+            PluginsXml.Plugin(
+                id = plugin.id,
+                name = project.name,
+                url = pluginUrl.get().toURL(),
+                version = plugin.version,
+            ),
+        )
 
         parser.writePluginsXml(updatePluginsXml.get().asFile, plugins)
     }

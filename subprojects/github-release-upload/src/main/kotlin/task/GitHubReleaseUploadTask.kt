@@ -22,21 +22,25 @@ import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
 @DisableCachingByDefault(because = "temporary")
-abstract class GitHubReleaseUploadTask: DefaultTask() {
+abstract class GitHubReleaseUploadTask : DefaultTask() {
     @get:Input
     abstract val githubToken: Property<String>
+
     @get:Input
     abstract val githubRepository: Property<String>
+
     @get:Input
     abstract val releaseName: Property<String>
+
     @get:InputFile
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
     abstract val releaseFile: RegularFileProperty
 
     companion object {
-        private val mapper: ObjectMapper = jacksonObjectMapper()
-            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-            .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
+        private val mapper: ObjectMapper =
+            jacksonObjectMapper()
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
     }
 
     data class Release(
@@ -45,24 +49,42 @@ abstract class GitHubReleaseUploadTask: DefaultTask() {
         val tagName: String,
     )
 
-
     @TaskAction
     fun upload() {
-        val releaseListResult = HttpClient.newHttpClient().send(HttpRequest.newBuilder().apply {
-            GET()
-            header("Authorization", "token ${githubToken.get()}")
-            uri(URI("https://api.github.com/repos/${ githubRepository.get() }/releases"))
-        }.build(), HttpResponse.BodyHandlers.ofString()).body()
-        val release = mapper.readValue<List<Release>>(releaseListResult).find { it.tagName == releaseName.get() } ?: throw GradleException("Release not found")
+        val releaseListResult =
+            HttpClient
+                .newHttpClient()
+                .send(
+                    HttpRequest
+                        .newBuilder()
+                        .apply {
+                            GET()
+                            header("Authorization", "token ${githubToken.get()}")
+                            uri(URI("https://api.github.com/repos/${ githubRepository.get() }/releases"))
+                        }.build(),
+                    HttpResponse.BodyHandlers.ofString(),
+                ).body()
+        val release =
+            mapper.readValue<List<Release>>(releaseListResult).find { it.tagName == releaseName.get() }
+                ?: throw GradleException("Release not found")
 
-        val uploadUrl = URI("https://uploads.github.com/repos/${ githubRepository.get() }/releases/${ release.id }/assets?name=${ releaseFile.get().asFile.name }")
+        val uploadUrl =
+            URI(
+                "https://uploads.github.com/repos/${ githubRepository.get() }/releases/${ release.id }/assets?name=${ releaseFile.get().asFile.name }",
+            )
         logger.info("upload to $uploadUrl")
-        val result = HttpClient.newHttpClient().send(HttpRequest.newBuilder().apply {
-            header("Authorization", "token ${githubToken.get()}")
-            header("Content-Type", "application/zip")
-            POST(HttpRequest.BodyPublishers.ofFile(releaseFile.get().asFile.toPath()))
-            uri(uploadUrl)
-        }.build(), HttpResponse.BodyHandlers.ofString())
+        val result =
+            HttpClient.newHttpClient().send(
+                HttpRequest
+                    .newBuilder()
+                    .apply {
+                        header("Authorization", "token ${githubToken.get()}")
+                        header("Content-Type", "application/zip")
+                        POST(HttpRequest.BodyPublishers.ofFile(releaseFile.get().asFile.toPath()))
+                        uri(uploadUrl)
+                    }.build(),
+                HttpResponse.BodyHandlers.ofString(),
+            )
 
         if (result.statusCode() / 100 != 2) {
             throw GradleException("upload is not success: $result, ${result.body()}")
