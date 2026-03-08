@@ -12,7 +12,7 @@ gradlePlugin {
 }
 
 testing {
-    @Suppress("UNUSED_VARIABLE")
+    @Suppress("UNUSED_VARIABLE", "UnstableApiUsage")
     suites {
         val test by getting(JvmTestSuite::class) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
