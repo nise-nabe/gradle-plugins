@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation("gradle.plugin.org.jetbrains.gradle.plugin.idea-ext:gradle-idea-ext:${libs.versions.idea.ext.get()}")
+    implementation(libs.idea.ext)
     implementation("com.gradle.publish:plugin-publish-plugin:2.1.0")
 }

@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.gradle.plugin.idea-ext")
+    id("com.nisecoder.convention.root")
 }
 
 subprojects {
