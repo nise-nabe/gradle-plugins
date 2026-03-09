@@ -1,6 +1,6 @@
 [versions]
 idea-ext = "1.4.1"
-jackson = "2.16.1"
+jackson = "2.21.1"
 plugin-publish = "2.1.0"
 asciidoctor = "4.0.5"
 annotations = "24.1.0"
