@@ -4,7 +4,7 @@ jackson = "2.21.1"
 plugin-publish = "2.1.0"
 asciidoctor = "4.0.5"
 annotations = "24.1.0"
-assertj = "3.25.1"
+assertj = "3.27.7"
 junit-jupiter = "6.0.3"
 
 [libraries]
