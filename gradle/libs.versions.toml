@@ -2,7 +2,7 @@
 idea-ext = "1.4.1"
 jackson = "2.16.1"
 plugin-publish = "2.1.0"
-asciidoctor = "3.3.2"
+asciidoctor = "4.0.5"
 annotations = "24.1.0"
 assertj = "3.25.1"
 junit-jupiter = "6.0.3"
